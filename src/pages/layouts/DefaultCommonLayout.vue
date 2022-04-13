@@ -71,6 +71,7 @@ export default {
             menu_top: this.$store.getters.menu_top,
         }
     },
+    components: {RightUserInfo, RegistrationRightCard, LoginRightCard, Header, Footer},
     methods: {
         sidebarToggle() {
             this.$store.commit('sidebarToggle');
@@ -87,7 +88,6 @@ export default {
             return this.$store.getters.auth;
         },
     },
-    components: {RightUserInfo, RegistrationRightCard, LoginRightCard, Header, Footer}
 }
 </script>
 

@@ -10,6 +10,7 @@
 
 import DefaultCommonLayout from '@/pages/layouts/DefaultCommonLayout';
 import AuthCommonLayout from '@/pages/layouts/AuthCommonLayout';
+import ErrorLayout from '@/pages/layouts/ErrorLayout';
 
 export default {
     computed: {
@@ -21,7 +22,7 @@ export default {
 
     },
     components: {
-        DefaultCommonLayout, AuthCommonLayout
+        DefaultCommonLayout, AuthCommonLayout, ErrorLayout
     }
 }
 

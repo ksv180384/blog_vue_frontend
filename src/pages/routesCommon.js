@@ -35,4 +35,9 @@ export default [
         component: () => import('@/pages/Registration'),
         meta: { layout: 'AuthCommonLayout', auth: false },
     },
+    {
+        path: '/:pathMatch(.*)*',
+        component: () => import('@/pages/404'),
+        meta: { layout: 'ErrorLayout', auth: false },
+    },
 ];
