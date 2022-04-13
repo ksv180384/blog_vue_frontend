@@ -7,10 +7,23 @@
             </div>
 
             <div>
-                {{ item.comment }}
+                <div class="post-comment-info">
+
+                    <PostCommentRating :comment="item"/>
+
+                    <div class="post-comment-author">
+                        <img :src="item.author.avatar" alt="Автор">
+                        <a href="#" class="link">{{ item.author.name }}</a>
+                    </div>
+                    <div class="post-comment-date">{{ item.created_at_humans }}</div>
+                </div>
+
+                <div class="comment-container">
+                    {{ item.comment }}
+                </div>
             </div>
 
-            <div class="text-right">
+            <div class="message-control-container">
                 <div @click="reply" v-if="auth && !show_reply" class="btn-reply">Ответить</div>
             </div>
 
@@ -20,7 +33,6 @@
                                :post_id="item.post_id"
                                @updateParentShowReply="onUpdateShowReply"
                                @updateChildrenComments="onUpdateChildrenComments"
-                               @updateUpCount="onUpdateUpCount"
             />
 
         </div>
@@ -28,7 +40,7 @@
             <TreeItems v-for="ch in item.children"
                        :item="ch"
                        :key="ch.id"
-                       @updateOneUpCount="onUpdateOneUpCount"
+                       @updateChildrenComments="onUpdateChildrenComments"
             />
         </div>
     </div>
@@ -39,9 +51,10 @@
 import {mapGetters} from "vuex";
 
 import PostCommentCreate from "@/components/PostCommentCreate";
+import PostCommentRating from "@/components/PostCommentRating";
 
 export default {
-    components: {PostCommentCreate},
+    components: {PostCommentCreate, PostCommentRating},
     name: "TreeItems",
     props: {
         item: {
@@ -70,9 +83,6 @@ export default {
         onUpdateUpCount(parent_id){
             console.log(parent_id);
             this.$emit('updateOneUpCount', parent_id);
-        },
-        onUpdateOneUpCount(id){
-            this.$emit('updateOneUpCount', id);
         },
         onUpdateChildrenComments(comments){
             this.$emit('updateChildrenComments', comments);

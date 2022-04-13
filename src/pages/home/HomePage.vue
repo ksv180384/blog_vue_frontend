@@ -30,15 +30,19 @@ export default {
     computed: {
         ...mapGetters(['posts', 'next_page']),
     },
-    mounted() {
-        if(!this.posts.length){
-           this.$store.dispatch('loadIndexPage');
-        }
-    },
     methods: {
         loadNextPosts(){
             this.$store.dispatch('loadIndexPage');
         }
+    },
+    mounted() {
+        if(!this.posts.length){
+            this.$store.dispatch('loadIndexPage');
+        }
+        console.log('mounted');
+    },
+    unmounted() {
+        console.log('unmounted');
     }
 }
 </script>

@@ -133,7 +133,11 @@ main{
 }
 
 .post-comment-info{
-    @apply font-semibold h-12 flex items-center
+    @apply font-semibold h-12 flex px-2 -mx-2 -mt-2 items-center bg-gray-100
+}
+
+.message-control-container{
+    @apply text-right pb-4
 }
 
 .post-comment-rating{
@@ -276,6 +280,10 @@ main{
     @apply bg-blue-300 text-white py-4
 }
 
+.comment-container{
+    @apply pt-4
+}
+
 .comment-control{
     @apply flex justify-between mt-2 
 }
@@ -293,11 +301,11 @@ main{
 }
 
 .comment-children:not(:last-of-type) .comment-children-content{
-    @apply border-b pb-3 mb-3
+    @apply pb-3
 }
 
 .comment-children-toggle-open{
-    @apply cursor-pointer absolute -left-6 text-gray-500 text-xs
+    @apply cursor-pointer absolute -left-8 text-gray-500 text-xs
 }
 
 textarea{

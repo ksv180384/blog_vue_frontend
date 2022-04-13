@@ -14,8 +14,6 @@
             {{ comment_item.comment }}
         </div>
 
-        <h1>{{ dd }}</h1>
-
         <div class="comment-control">
             <div>
                 <div @click="openBranch" class="btn-open-reply">
@@ -43,7 +41,6 @@
             <TreeItems v-for="children_comment in children_comments"
                        :item="children_comment"
                        :key="children_comment.id"
-                       @updateOneUpCount="onUpdateOneUpCount"
                        @updateChildrenComments="onUpdateChildrenComments"
             />
         </div>
@@ -76,7 +73,6 @@ export default {
             children_comments: [],
             open_branch: false,
             load_branch: false,
-            dd: 0,
         }
     },
     methods: {
@@ -108,9 +104,6 @@ export default {
             this.children_comments = comments;
             this.open_branch = true;
         },
-        onUpdateOneUpCount(id){
-            this.dd = id;
-        }
     },
     computed: {
         ...mapGetters(['auth'])

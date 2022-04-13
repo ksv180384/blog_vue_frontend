@@ -16,7 +16,6 @@
                 >Отправить</button>
             </div>
         </form>
-        <button @click="upCount">up</button>
     </div>
 </template>
 
@@ -68,9 +67,6 @@ export default {
         },
         showReply(){
             this.$emit('updateParentShowReply');
-        },
-        upCount(){
-            this.$emit('updateUpCount', this.parent_id);
         }
     },
     created() {
