@@ -331,3 +331,7 @@ textarea:target{
 .btn-open-reply>span{
     @apply ml-2 hover:underline 
 }
+
+.preloader{
+    @apply fixed top-2 right-1 z-10 px-8 py-2 bg-white shadow
+}
