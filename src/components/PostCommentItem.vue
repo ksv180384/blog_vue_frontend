@@ -16,7 +16,7 @@
 
         <div class="comment-control">
             <div>
-                <div @click="openBranch" class="btn-open-reply">
+                <div v-if="comment_item.children_count > 0" @click="openBranch" class="btn-open-reply">
                     <i v-if="!open_branch && !load_branch" class="fa fa-plus-square"></i>
                     <i v-else-if="load_branch" class="fa fa-spinner fa-pulse"></i>
                     <i v-else class="fa fa-minus-square"></i>
@@ -102,6 +102,7 @@ export default {
         },
         onUpdateChildrenComments(comments){
             this.children_comments = comments;
+            this.comment_item.children_count = this.children_comments.length;
             this.open_branch = true;
         },
     },
