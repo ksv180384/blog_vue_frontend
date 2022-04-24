@@ -335,3 +335,15 @@ textarea:target{
 .preloader{
     @apply fixed top-2 right-1 z-10 px-8 py-2 bg-white shadow
 }
+
+.load-img{
+    @apply my-4 relative
+}
+
+.load-img img{
+    @apply w-full
+}
+
+.load-img-remove{
+    @apply absolute text-4xl right-1 top-1 h-9 w-9 text-center leading-3 cursor-pointer hover:text-gray-200
+}
