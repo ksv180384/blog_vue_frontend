@@ -308,6 +308,13 @@ main{
     @apply cursor-pointer absolute -left-8 text-gray-500 text-xs
 }
 
+input[type="text"]{
+    @apply border border-gray-300 rounded p-2 w-full focus:border-blue-300 outline-none
+}
+textarea[type="text"]:target{
+    @apply border-blue-300 
+}
+
 textarea{
     @apply border border-gray-300 rounded p-2 w-full focus:border-blue-300 outline-none
 }

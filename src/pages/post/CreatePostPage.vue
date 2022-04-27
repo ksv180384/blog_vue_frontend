@@ -3,8 +3,11 @@
         <h1 class="mb-5">Добавить новы пост</h1>
 
         <form @submit.prevent="addPost">
+            <div class="mb-3">
+                <input type="text" v-model="title" placeholder="Название поста"/>
+            </div>
             <div>
-                <textarea rows="10" v-model="post"></textarea>
+                <textarea rows="10" v-model="post" placeholder="Содержимое поста"></textarea>
             </div>
 
             <div class="mt-2 text-right">
@@ -35,6 +38,7 @@ export default {
     components: {LoadImage},
     data(){
         return {
+            title: '',
             post: '',
             images: [],
         }
@@ -50,7 +54,7 @@ export default {
         },
         addPost(){
             //console.log(this.post);
-            api.post('/post/create', { post: this.post, images: this.images });
+            api.post('/post/create', { title: this.title, content: this.post, images: this.images });
         },
         loadImage(file){
             return new Promise((resolve) => {
