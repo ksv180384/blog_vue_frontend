@@ -20,9 +20,18 @@
                 </h2>
             </div>
 
-            <div class="post-item-content">
-                {{ post_item.preview }}
+            <div v-if="post_item.first_image">
+                <img :src="post_item.first_image.path_storage">
             </div>
+
+            <div class="post-item-content">
+                {{ post_item.content }}
+            </div>
+
+            <div v-if="post_item.images">
+                <img v-for="image in post_item.images" :key="image.id" :src="image.path_storage">
+            </div>
+
         </div>
 
     </div>

@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-    //baseURL: 'http://localhost/api/v1/',
-    baseURL: '/api/v1/',  // vue.config.js настроен путь для crossdomain
+    baseURL: 'http://localhost/api/v1/',
+    //baseURL: '/api/v1/',  // vue.config.js настроен путь для crossdomain
     withCredentials: false,
     headers: {
         Accept: 'application/json',

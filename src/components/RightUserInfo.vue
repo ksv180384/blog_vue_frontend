@@ -3,10 +3,15 @@
         <div class="right-card__user-info-block">
             <img :src="user.avatar" :alt="user.name" />
             <div>
-                {{ user.name }}
+                <strong>{{ user.name }}</strong>
 
-                <div>
-                    <router-link to="/post/create">Добавить пост</router-link>
+                <div class="mt-4">
+                    <div>
+                        <router-link to="/post/create">Мои посты</router-link>
+                    </div>
+                    <div>
+                        <router-link to="/post/create">Добавить пост</router-link>
+                    </div>
                 </div>
             </div>
 

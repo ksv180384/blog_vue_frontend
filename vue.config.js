@@ -1,6 +1,6 @@
 module.exports = {
   assetsDir: 'assets',
-  devServer: {
+  /*devServer: {
     proxy: 'http://blog_vue.local'
-  }
+  }*/
 }
