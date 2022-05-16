@@ -7,7 +7,7 @@
             </div>
             <div class="content-right">
                 <template v-if="!auth">
-                    <LoginRightCard v-if="!showRegistration"/>
+                    <LoginRightCard v-if="!show_registration"/>
                     <RegistrationRightCard v-else/>
                 </template>
                 <template v-else>
@@ -19,14 +19,14 @@
                 <transition name="transition-bg-right-sidebar">
 
                     <div @click.self="sidebarToggle"
-                         v-if="showSidebar"
+                         v-if="show_sidebar"
                          class="bg-right-sidebar">
                     </div>
 
                 </transition>
                 <transition name="transition-right-sidebar">
                     <div class="right-sidebar"
-                         v-if="showSidebar"
+                         v-if="show_sidebar"
                     >
                         <div class="right-sidebar-header">
 
@@ -64,12 +64,11 @@ import Header from "@/components/Header";
 import LoginRightCard from "@/components/LoginRightCard";
 import RegistrationRightCard from "@/components/RegistrationRightCard";
 import RightUserInfo from "@/components/RightUserInfo";
+import {mapGetters} from "vuex";
 
 export default {
     data() {
-        return {
-            menu_top: this.$store.getters.menu_top,
-        }
+        return {}
     },
     components: {RightUserInfo, RegistrationRightCard, LoginRightCard, Header, Footer},
     methods: {
@@ -78,15 +77,7 @@ export default {
         },
     },
     computed: {
-        showSidebar() {
-            return this.$store.getters.show_sidebar;
-        },
-        showRegistration() {
-            return this.$store.getters.show_registration;
-        },
-        auth(){
-            return this.$store.getters.auth;
-        },
+        ...mapGetters(['show_sidebar', 'show_registration', 'auth', 'menu_top'])
     },
 }
 </script>

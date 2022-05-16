@@ -7,7 +7,10 @@
 
                 <div class="mt-4">
                     <div>
-                        <router-link to="/post/create">Мои посты</router-link>
+                        <router-link to="/user/profile">Мой профиль</router-link>
+                    </div>
+                    <div>
+                        <router-link to="/user/my-posts">Мои посты</router-link>
                     </div>
                     <div>
                         <router-link to="/post/create">Добавить пост</router-link>

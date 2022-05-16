@@ -1,6 +1,6 @@
 <template>
     <div class="load-img">
-        <div class="load-img-remove">
+        <div class="load-img-remove" @click="remove">
             <i class="fas fa-remove"></i>
         </div>
         <img :src="image.src" />
@@ -11,6 +11,11 @@
 export default {
     name: "LoadImage",
     props: ['image'],
+    methods: {
+        remove(){
+            this.$emit('remove', this.image);
+        },
+    },
 }
 </script>
 

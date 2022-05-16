@@ -19,8 +19,6 @@ export default {
                 .then(response => {
                     commit('setPost', response.post);
                     commit('setPostComments', response.comments);
-                    commit('setAuth', !!response.user);
-                    commit('setUser', response.user);
                 })
         },
     },

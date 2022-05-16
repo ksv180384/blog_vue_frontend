@@ -24,9 +24,6 @@ export default {
 
              const res = await api.get('/', {params: { page: state.next_page}});
              commit('setPosts', res.posts);
-             commit('setAuth', !!res.user);
-             commit('setUser', res.user);
-
              commit('setIsLoadMore', false);
         }
     },

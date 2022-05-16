@@ -26,6 +26,8 @@
         <LoadImage v-for="(image, index) in images"
                    :image="image"
                    :key="index"
+                   @remove="removeImg"
+
         />
     </section>
 </template>
@@ -64,6 +66,10 @@ export default {
                 };
                 reader.readAsDataURL(file);
             });
+        },
+        removeImg(img){
+            const index = this.images.indexOf(img);
+            this.images.splice(index, 1);
         }
     }
 }

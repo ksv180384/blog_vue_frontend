@@ -80,9 +80,19 @@ export default {
             this.isDisabled = true;
             api.post('login', dataForm)
                 .then(response => {
+                    //this.$store.commit('setAuth', true);
+                    //this.$store.commit('setUser', response.user);
+                    /*
+                    const user = {
+                        user: response.user,
+                    }
+                    */
+
+                    //localStorage.setItem('user_token', response.user.token);
+                    localStorage.setItem('user', JSON.stringify(response.user));
                     this.$store.commit('setAuth', true);
                     this.$store.commit('setUser', response.user);
-                    localStorage.setItem('user_token', response.user.token);
+
                     this.isDisabled = false;
                 }).catch(error => {
                     console.log(error.response);

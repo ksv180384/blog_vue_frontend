@@ -40,4 +40,16 @@ export default [
         component: () => import('@/pages/404'),
         meta: { layout: 'ErrorLayout', auth: false },
     },
+    {
+        path: '/user/profile',
+        name: 'Profile',
+        component: () => import('@/pages/user/Profile'),
+        meta: { layout: 'DefaultCommonLayout', auth: true },
+    },
+    {
+        path: '/user/my-posts',
+        name: 'MyPosts',
+        component: () => import('@/pages/user/MyPosts'),
+        meta: { layout: 'DefaultCommonLayout', auth: true },
+    },
 ];
