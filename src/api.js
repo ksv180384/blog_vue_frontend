@@ -1,4 +1,5 @@
 import axios from 'axios';
+import router from "@/router/indexRouter";
 
 const api = axios.create({
     baseURL: 'http://localhost/api/v1/',
@@ -15,7 +16,8 @@ const api = axios.create({
 api.interceptors.request.use(function (config){
 
     const user =  localStorage.getItem('user');
-    const token = user ? JSON.parse(user) : null
+    const token = user ? JSON.parse(user).token : null
+
     config.headers['Authorization'] = 'Bearer ' + token;
 
     return config;
@@ -30,6 +32,13 @@ api.interceptors.response.use(function (response) {
     return response.data;
 }, function (error) {
     // При ответе сервера с ошибкой
+
+    // Если ошибка авторизации, то удаляем данные пользователя из localStorage
+    if(error.response.status === 403){
+        localStorage.removeItem('user');
+        router.push('/');
+    }
+
     alert('error');
     return Promise.reject(error);
 });

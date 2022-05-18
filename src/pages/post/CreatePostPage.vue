@@ -10,6 +10,13 @@
                 <textarea rows="10" v-model="post" placeholder="Содержимое поста"></textarea>
             </div>
 
+            <div class="mb-3 mt-3">
+                <label>
+                    <input v-model="published" type="checkbox"/>
+                    Опубликовать пост
+                </label>
+            </div>
+
             <div class="mt-2 text-right">
                 <button @click="openLoadImg"
                         type="button"
@@ -35,6 +42,8 @@
 <script>
 import LoadImage from "@/components/LoadImage";
 import api from "@/api";
+import router from "@/router/indexRouter";
+
 export default {
     name: "CreatePostPage",
     components: {LoadImage},
@@ -43,6 +52,7 @@ export default {
             title: '',
             post: '',
             images: [],
+            published: true,
         }
     },
     methods: {
@@ -55,8 +65,20 @@ export default {
             this.images.push({ src: imageBase64 });
         },
         addPost(){
-            //console.log(this.post);
-            api.post('/post/create', { title: this.title, content: this.post, images: this.images });
+            const data = {
+                title: this.title,
+                content: this.post,
+                images: this.images,
+                published: this.published
+            };
+            api.post('/post/create', data)
+                .then(function (response) {
+                    router.push('/user/my-posts');
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         },
         loadImage(file){
             return new Promise((resolve) => {

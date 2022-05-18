@@ -49,7 +49,7 @@ export default {
                 .then(() => {
                     this.$store.commit('setAuth', false);
                     this.$store.commit('setUser', null);
-                    localStorage.setItem('user_token', null);
+                    localStorage.removeItem('user_token');
                     router.push('/');
                 }).catch(error => {
                     console.log(error);
