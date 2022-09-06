@@ -34,7 +34,7 @@ api.interceptors.response.use(function (response) {
     // При ответе сервера с ошибкой
 
     // Если ошибка авторизации, то удаляем данные пользователя из localStorage
-    if(error.response.status === 403){
+    if(error.response.status === 401){
         localStorage.removeItem('user');
         router.push('/');
     }
