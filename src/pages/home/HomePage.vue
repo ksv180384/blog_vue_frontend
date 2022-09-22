@@ -4,10 +4,10 @@
         <div class="text-blue-600 mr-4">
             <i class="fas fa-exclamation"></i>
         </div>
-        Объявление
+        Объявление!!!
     </div>
 
-    <div v-if="isLoadingMore" class="preloader">
+    <div v-if="is_loading_more_posts" class="preloader">
         Загрузка
     </div>
 
@@ -17,33 +17,53 @@
                       :key="post.id"
                       :post="post"
             />
-            <div class="text-center pb-3">
-                <button class="btn btn-primary" @click="loadNextPosts">еще</button>
-            </div>
+
+            <LoadNextContent v-show="next_page" ref="sentinel"/>
+
         </div>
-        <div ref="sentinel">oooo</div>
     </div>
 
 </template>
 
 <script>
 
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import PostItem from "@/components/PostItem";
+import {getPostsNext, getPostsPage} from "@/servises/post_servise";
+import LoadNextContent from "@/components/LoadNextContent";
 
 export default {
     name: "HomePage",
     data(){
         return {
+            is_loading_more_posts: false,
         }
     },
-    components: {PostItem},
+    components: {LoadNextContent, PostItem },
     computed: {
-        ...mapGetters(['posts', 'next_page', 'isLoadingMore', 'canLoadMore']),
+        ...mapGetters(['is_loading_page']),
+        ...mapGetters('storeHomePage', ['posts', 'next_page']),
     },
     methods: {
-        loadNextPosts(){
-            this.$store.dispatch('loadIndexPage');
+        ...mapMutations(['setIsLoadingPage']),
+        ...mapMutations('storeHomePage', ['setPosts', 'pushPosts', 'setNextPage']),
+        /*async loadNextPosts(){
+            const resPostsPage = await getPostsPage({ page: this.next_page});
+
+        },*/
+        async loadPosts(){
+            this.setIsLoadingPage(true);
+            const resPostsPage = await getPostsPage();
+            this.setIsLoadingPage(true);
+            this.setPosts(resPostsPage.posts.data)
+            this.setNextPage(resPostsPage.posts.pagination.next_page);
+        },
+        async loadPostsNext(){
+            this.is_loading_more_posts = true;
+            const resPostsPage = await getPostsNext({ page: this.next_page});
+            this.is_loading_more_posts = false;
+            this.pushPosts(resPostsPage.posts.data);
+            this.setNextPage(resPostsPage.posts.pagination.next_page);
         },
         setUpInterSectionObserver() {
             let options = {
@@ -54,25 +74,26 @@ export default {
                 this.handleIntersection,
                 options
             );
-            this.listEndObserver.observe(this.$refs.sentinel);
+            this.listEndObserver.observe(this.$refs.sentinel.$el);
         },
         handleIntersection([entry]) {
+            /*
             console.log("1");
             if (entry.isIntersecting) {
                 console.log("sentinel intersecting");
-            }
-            if (entry.isIntersecting && this.canLoadMore && !this.isLoadingMore) {
-                //this.loadMore();
+            }*/
+            if (entry.isIntersecting) {
                 console.log('ok');
-                this.loadNextPosts();
+                //this.loadPostsNext();
             }
         },
     },
     mounted() {
         if(!this.posts.length){
-            this.$store.dispatch('loadIndexPage');
+            //this.$store.dispatch('loadIndexPage');
+            this.loadPosts();
         }
-        console.log('mounted');
+
         this.setUpInterSectionObserver();
     },
     unmounted() {
@@ -80,7 +101,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

@@ -2,8 +2,8 @@ import axios from 'axios';
 import router from "@/router/indexRouter";
 
 const api = axios.create({
-    baseURL: 'http://localhost/api/v1/',
-    //baseURL: '/api/v1/',  // vue.config.js настроен путь для crossdomain
+    //baseURL: `${process.env.VUE_APP_API_URL}/api/v1/`,
+    baseURL: '/api/v1/',  // vue.config.js настроен путь для crossdomain
     withCredentials: false,
     headers: {
         Accept: 'application/json',
