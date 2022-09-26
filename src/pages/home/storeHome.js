@@ -10,7 +10,7 @@ const storeHomePage = {
             state.posts = posts;
         },
         pushPosts(state, posts) {
-            state.posts = [...state.posts, ...posts.data];
+            state.posts = [...state.posts, ...posts];
         },
         setNextPage(state, next_page){
             state.next_page = next_page;

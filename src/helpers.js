@@ -14,3 +14,7 @@ export const getData = async (path, params) => {
 
     return await api.get(path, { params: { ...params } });
 }
+
+export const putData = async (path, params) => {
+    return await api.put(path, { params: { ...params } });
+}

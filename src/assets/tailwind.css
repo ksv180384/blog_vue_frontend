@@ -63,11 +63,7 @@ main{
 }
 
 .post-item{
-    @apply shadow-lg bg-white relative my-4 rounded ml-14 md:ml-0
-}
-
-.post-item:last-child {
-    @apply mb-0 bg-red-800
+    @apply shadow-lg bg-white relative my-4 rounded ml-14 md:ml-0 last:m-0
 }
 
 .post-item-left{

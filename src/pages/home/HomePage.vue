@@ -11,16 +11,15 @@
         Загрузка
     </div>
 
-    <div class="scroll-container" ref="scrollContainer">
-        <div ref="listContainer" class="posts-list" v-if="posts">
+    <div class="scroll-container">
+        <div class="posts-list" v-if="posts">
             <PostItem v-for="post in posts"
                       :key="post.id"
                       :post="post"
             />
-
-            <LoadNextContent v-show="next_page" ref="sentinel"/>
-
         </div>
+
+        <LoadNextContent v-show="next_page" ref="sentinel"/>
     </div>
 
 </template>
@@ -47,10 +46,6 @@ export default {
     methods: {
         ...mapMutations(['setIsLoadingPage']),
         ...mapMutations('storeHomePage', ['setPosts', 'pushPosts', 'setNextPage']),
-        /*async loadNextPosts(){
-            const resPostsPage = await getPostsPage({ page: this.next_page});
-
-        },*/
         async loadPosts(){
             this.setIsLoadingPage(true);
             const resPostsPage = await getPostsPage();
@@ -84,7 +79,7 @@ export default {
             }*/
             if (entry.isIntersecting) {
                 console.log('ok');
-                //this.loadPostsNext();
+                this.loadPostsNext();
             }
         },
     },
