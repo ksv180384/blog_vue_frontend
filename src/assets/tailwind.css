@@ -54,78 +54,12 @@ main{
     @apply w-full md:w-8/12
 }
 
-.content-alert{
-    @apply p-6 shadow-lg bg-white my-4 flex
+.content-right-card{
+    @apply sticky top-0 my-4 ml-6 shadow-lg p-2 rounded bg-white
 }
 
 .posts-list{
 
-}
-
-.post-item{
-    @apply shadow-lg bg-white relative my-4 rounded ml-14 md:ml-0 last:m-0
-}
-
-.post-item-left{
-    @apply absolute -left-10 text-gray-400 text-center
-}
-
-.left-rating-up,
-.left-rating-down{
-    @apply cursor-pointer hover:text-blue-400 transition duration-300 text-2xl
-}
-
-.left-rating-up>i,
-.left-rating-down>i{
-    @apply block
-}
-
-.left-rating-up.active{
-    @apply text-green-600
-}
-
-.left-rating-down.active{
-    @apply text-red-600
-}
-
-.left-rating-count{
-    @apply text-xs font-bold
-}
-
-.post-item-container{
-    
-}
-
-.post-info{
-    @apply p-4 font-semibold
-}
-
-.post-info-top{
-    @apply flex justify-start items-center
-}
-
-.post-author{
-    @apply flex justify-start items-center
-}
-
-.post-author img{
-    @apply rounded-full w-10 h-10 object-cover mr-4
-}
-
-.post-author a{
-    @apply mr-4
-}
-
-.post-date{
-    @apply text-gray-600 text-xs font-normal
-}
-
-.post-header{
-    @apply mt-3 text-xl
-}
-
-.post-item-content{
-    @apply p-3
 }
 
 .post-comment-item{
@@ -174,10 +108,6 @@ main{
 
 .content-right{
     @apply hidden w-4/12 sticky top-0 md:block
-}
-
-.content-right-card{
-    @apply sticky top-0 my-4 ml-6 shadow-lg p-2 rounded bg-white
 }
 
 .right-card-header{
@@ -258,22 +188,6 @@ main{
 
 .social-login-container>li{
     @apply text-2xl
-}
-
-.right-card__user-info-block{
-    @apply flex justify-between
-}
-
-.right-card__user-info-block>img{
-    @apply w-24 h-24 object-cover rounded
-}
-
-.right-card__user-info-block>div{
-    @apply flex-grow px-4 relative
-}
-
-.profile-exit{
-    @apply absolute -right-3 top-0
 }
 
 .footer{

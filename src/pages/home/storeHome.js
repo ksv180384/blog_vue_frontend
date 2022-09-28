@@ -1,9 +1,11 @@
 
 const storeHomePage = {
     namespaced: true,
-    state: {
-        posts: [],
-        next_page: null,
+    state: () => {
+        return {
+            posts: [],
+            next_page: null,
+        }
     },
     mutations: {
         setPosts(state, posts) {

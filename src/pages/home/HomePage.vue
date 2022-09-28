@@ -1,12 +1,4 @@
 <template>
-
-    <div class="content-alert">
-        <div class="text-blue-600 mr-4">
-            <i class="fas fa-exclamation"></i>
-        </div>
-        Объявление!!!
-    </div>
-
     <div v-if="is_loading_more_posts" class="preloader">
         Загрузка
     </div>
@@ -28,7 +20,7 @@
 
 import { mapGetters, mapMutations } from 'vuex'
 import PostItem from "@/components/PostItem";
-import {getPostsNext, getPostsPage} from "@/servises/post_servise";
+import { getPostsNext, getPostsPage } from "@/servises/post_servise";
 import LoadNextContent from "@/components/LoadNextContent";
 
 export default {

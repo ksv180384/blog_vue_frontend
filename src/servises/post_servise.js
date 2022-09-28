@@ -1,5 +1,5 @@
 import api from "@/api";
-import {loadPage, getData, putData} from "@/helpers";
+import {loadPage, getData, putData, postData} from "@/helpers";
 
 export const getPostsPage = async () => {
     return  await loadPage('/', {});
@@ -7,6 +7,10 @@ export const getPostsPage = async () => {
 
 export const getPostsNext = async (params) => {
     return  await getData('/', params);
+}
+
+export const getPost = async (id) => {
+    return  await getData(`/post/${id}`);
 }
 
 export const postUp = async (id) => {
@@ -17,10 +21,18 @@ export const postDown = async (id) => {
     return await putData('post/down', { id: id })
 }
 
-// async loadIndexPage({ commit, state }){
-//     commit('setIsLoadMore', true);
-//
-//     const res = await api.get('/', {params: { page: state.next_page}});
-//     commit('setPosts', res.posts);
-//     commit('setIsLoadMore', false);
-// }
+export const getCommentsBranch = async (commentId) => {
+    return await getData(`/post/comments/branch/${commentId}`);
+}
+
+export const createPostComment = async (commentData) => {
+    return await postData('/post/comment/create', commentData);
+}
+
+export const commentPostUp = async (id) => {
+    return await putData('/post/comment/up', { id: id })
+}
+
+export const commentPostDown = async (id) => {
+    return await putData('/post/comment/up', { id: id })
+}

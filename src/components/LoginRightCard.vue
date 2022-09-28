@@ -3,35 +3,35 @@
         <div class="right-card-header">Авторизация</div>
         <div class="w-5/6 mx-auto">
             <form action="#" @submit.prevent="submitLogin">
-                <div class="form-group" :class="{ error: error_response }">
-                    <label for="inputLogin">Email</label>
-                    <input id="inputLogin"
-                           type="text"
-                           v-model.trim="email"
-                           :disabled="isDisabled"
-                           placeholder="Введите email"
 
-                    />
-                    <small class="error" v-if="error_response">
-                        {{ error_response }}
-                    </small>
-                </div>
-                <div class="form-group"
-                     :class="{ error: error_response }"
+                <InputGroup v-model.trim="email"
+                            placeholder="Введите email"
+                            :disabled="isDisabled"
+                            :class="{ error: error_response }"
+                            :error_message="error_response"
                 >
-                    <label for="inputPassword">Пароль</label>
-                    <input id="inputPassword"
-                           type="password"
-                           v-model.trim="password"
-                           :disabled="isDisabled"
-                           placeholder="Введите пароль"
-                    />
-                </div>
+                    Email
+                </InputGroup>
+                <InputGroup v-model.trim="password"
+                            type="password"
+                            placeholder="Введите пароль"
+                            :disabled="isDisabled"
+                            :class="{ error: error_response }"
+                            :error_message="error_response"
+                >
+                    Пароль
+                </InputGroup>
+
+
+                <Checkbox v-model="remember">Запомнить</Checkbox>
+
                 <div class="text-center mt-6">
                     <button class="btn btn-primary"
                             type="submit"
                             :disabled='isDisabled'
-                    >Войти</button>
+                    >
+                        Войти
+                    </button>
                 </div>
             </form>
 
@@ -39,7 +39,9 @@
                 <a href="#"
                    @click.prevent="registrationToggle"
                    class="link font-semibold uppercase"
-                >Регистрация</a>
+                >
+                    Регистрация
+                </a>
             </div>
             <hr>
             <SocialLogin/>
@@ -49,9 +51,15 @@
 
 <script>
 
-import api from '@/api';
 import useVuelidate from '@vuelidate/core';
+
+import { mapMutations } from "vuex";
+
 import SocialLogin from "@/components/SocialLogin";
+import Checkbox from "@/components/form/Checkbox";
+import InputGroup from "@/components/form/InputGroup";
+
+import { userLogin } from "@/servises/user_servise";
 
 export default {
     setup(){
@@ -61,46 +69,38 @@ export default {
         return {
             email: '',
             password: '',
+            remember: false,
             isDisabled: false,
             error_response: null,
         }
     },
     methods: {
-        registrationToggle() {
-            this.$store.commit('registrationToggle');
-        },
-        submitLogin(){
+        ...mapMutations(['setAuth', 'setUser', 'registrationToggle']),
+        async submitLogin(){
             this.error_response = null;
             if(this.v$.$invalid){
                 this.v$.$touch();
                 return true;
             }
-
-            const dataForm = { email: this.email, password: this.password };
             this.isDisabled = true;
-            api.post('login', dataForm)
-                .then(response => {
-                    //this.$store.commit('setAuth', true);
-                    //this.$store.commit('setUser', response.user);
-                    /*
-                    const user = {
-                        user: response.user,
-                    }
-                    */
+            const dataForm = { email: this.email, password: this.password };
 
-                    //localStorage.setItem('user_token', response.user.token);
-                    localStorage.setItem('user', JSON.stringify(response.user));
-                    this.$store.commit('setAuth', true);
-                    this.$store.commit('setUser', response.user);
+            // try {
+            //     const resUserLogin = await userLogin(dataForm);
+            //     const user = resUserLogin.user;
+            //     this.isDisabled = false;
+            //
+            //     localStorage.setItem('user', JSON.stringify(user));
+            //     this.setAuth(true);
+            //     this.setUser(user);
+            // } catch (e) {
+            //     console.log(error.response);
+            //     this.error_response = error?.response?.data?.message;
+            //     this.isDisabled = false;
+            // }
 
-                    this.isDisabled = false;
-                }).catch(error => {
-                    console.log(error.response);
-                    this.error_response = error.response.data.message;
-                    this.isDisabled = false;
-                });
         }
     },
-    components: {SocialLogin},
+    components: { SocialLogin, InputGroup, Checkbox },
 }
 </script>

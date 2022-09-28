@@ -51,3 +51,45 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+.post-item{
+    @apply shadow-lg bg-white relative my-4 rounded ml-14 md:ml-0 last:m-0
+}
+
+.post-item-container{
+
+}
+
+.post-header{
+    @apply mt-3 text-xl
+}
+
+.post-info{
+    @apply p-4 font-semibold
+}
+
+.post-info-top{
+    @apply flex justify-start items-center
+}
+
+.post-author{
+    @apply flex justify-start items-center
+}
+
+.post-author img{
+    @apply rounded-full w-10 h-10 object-cover mr-4
+}
+
+.post-author a{
+    @apply mr-4
+}
+
+.post-date{
+    @apply text-gray-600 text-xs font-normal
+}
+
+.post-item-content{
+    @apply p-3
+}
+</style>

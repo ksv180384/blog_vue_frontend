@@ -13,7 +13,7 @@
 <script>
 
 import { mapGetters } from "vuex";
-import { postUp } from "@/servises/post_servise";
+import { postUp, postDown } from "@/servises/post_servise";
 
 export default {
     name: "PostRating",
@@ -61,3 +61,31 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.post-item-left{
+    @apply absolute -left-10 text-gray-400 text-center
+}
+
+.left-rating-up,
+.left-rating-down{
+    @apply cursor-pointer hover:text-blue-400 transition duration-300 text-2xl
+}
+
+.left-rating-up>i,
+.left-rating-down>i{
+    @apply block
+}
+
+.left-rating-up.active{
+    @apply text-green-600
+}
+
+.left-rating-down.active{
+    @apply text-red-600
+}
+
+.left-rating-count{
+    @apply text-xs font-bold
+}
+</style>

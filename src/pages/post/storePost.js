@@ -1,9 +1,11 @@
-import api from '@/api';
 
-export default {
-    state: {
-        post: null,
-        comments: null,
+const storePostPage = {
+    namespaced: true,
+    state: () => {
+        return {
+            post: null,
+            comments: null,
+        }
     },
     mutations: {
         setPost(state, post) {
@@ -13,17 +15,10 @@ export default {
             state.comments = comments;
         },
     },
-    actions: {
-        loadPost({ commit }, id){
-            api.get('post/' + id)
-                .then(response => {
-                    commit('setPost', response.post);
-                    commit('setPostComments', response.comments);
-                })
-        },
-    },
     getters: {
         post: state => state.post,
         comments: state => state.comments,
     }
 };
+
+export default storePostPage;

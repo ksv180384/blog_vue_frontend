@@ -48,7 +48,7 @@
 
 <script>
 
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
 
 import PostCommentCreate from "@/components/PostCommentCreate";
 import PostCommentRating from "@/components/PostCommentRating";
@@ -80,9 +80,8 @@ export default {
         onUpdateShowReply(){
             this.reply();
         },
-        onUpdateUpCount(parent_id){
-            console.log(parent_id);
-            this.$emit('updateOneUpCount', parent_id);
+        onUpdateUpCount(parentId){
+            this.$emit('updateOneUpCount', parentId);
         },
         onUpdateChildrenComments(comments){
             this.$emit('updateChildrenComments', comments);

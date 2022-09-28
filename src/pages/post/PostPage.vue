@@ -8,25 +8,34 @@
 
 <script>
 
-import { mapGetters } from 'vuex';
+import {mapGetters, mapMutations} from 'vuex';
 
 import PostItem from '@/components/PostItem';
 import PostCommentItem from '@/components/PostCommentItem';
+import { getPost } from '@/servises/post_servise';
 
 export default {
-    components: {PostCommentItem, PostItem},
+    components: { PostCommentItem, PostItem },
     data(){
         return {}
     },
     computed: {
-        ...mapGetters(['post', 'comments']),
+        ...mapGetters('storePostPage', ['post', 'comments']),
+    },
+    methods: {
+        ...mapMutations('storePostPage', ['setPost', 'setPostComments']),
+        async loadPost(){
+            try {
+                const resGetPost = await getPost(this.$route.params.id);
+                this.setPost(resGetPost.post);
+                this.setPostComments(resGetPost.comments);
+            } catch (e) {
+                console.log(e);
+            }
+        },
     },
     mounted() {
-        this.$store.dispatch('loadPost', this.$route.params.id);
+        this.loadPost();
     }
 }
 </script>
-
-<style scoped>
-
-</style>

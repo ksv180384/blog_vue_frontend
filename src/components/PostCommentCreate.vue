@@ -20,7 +20,8 @@
 </template>
 
 <script>
-import api from "@/api";
+
+import { createPostComment } from "@/servises/post_servise";
 
 export default {
     name: "PostCommentCreate",
@@ -44,7 +45,7 @@ export default {
         }
     },
     methods: {
-        sendComment(){
+        async sendComment(){
 
             this.load = true;
 
@@ -55,15 +56,15 @@ export default {
                 comment: this.comment,
             };
 
-            api.post('/post/comment/create', commentData).then(response => {
-                // Обновляем всю ветку комментариев
-                this.$emit('updateChildrenComments', response.comments[0].children);
+            try {
+                const resCreatePostComment = await createPostComment(commentData);
+                this.$emit('updateChildrenComments', resCreatePostComment?.comments[0]?.children);
                 this.showReply();
                 this.load = false;
-            }).catch(error => {
+            } catch (e) {
                 this.load = false;
-                console.log(error);
-            });
+                console.log(e);
+            }
         },
         showReply(){
             this.$emit('updateParentShowReply');

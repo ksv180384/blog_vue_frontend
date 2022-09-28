@@ -35,8 +35,8 @@ router.beforeEach((to, from, next) => {
     });
 
     store.commit('sidebarHide');
-    store.commit('setPost', null);
-    store.commit('setPostComments', null);
+    store.commit('storePostPage/setPost', null);
+    store.commit('storePostPage/setPostComments', null);
 
     // Проверка доступа не авторизовнным пользователям
     const userAuth = !!localStorage.getItem('user');

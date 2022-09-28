@@ -5,7 +5,7 @@
             <div>
                 <strong>{{ user.name }}</strong>
 
-                <div class="mt-4">
+                <div class="menu">
                     <div>
                         <router-link to="/user/profile">Мой профиль</router-link>
                     </div>
@@ -19,46 +19,66 @@
             </div>
 
             <div class="profile-exit">
-                <button @click="logout" title="Выход"><i class="fas fa-sign-out-alt"></i></button>
+                <button @click="logout"
+                        title="Выход"
+                >
+                    <i class="fas fa-sign-out-alt"></i> Выход
+                </button>
             </div>
-            
-        </div>
-        <div class="w-5/6 mx-auto">
         </div>
     </div>
 
 </template>
 
 <script>
-import api from "@/api";
-import router from "@/router/indexRouter";
+import {mapGetters, mapMutations} from "vuex";
+import { userLout } from "@/servises/user_servise";
 
 export default {
     data() {
         return {}
     },
     computed: {
-        user(){
-            return this.$store.getters.user;
-        },
+        ...mapGetters(['user']),
     },
     methods: {
-        logout(){
-
-            api.post('logout', {})
-                .then(() => {
-                    this.$store.commit('setAuth', false);
-                    this.$store.commit('setUser', null);
-                    localStorage.removeItem('user_token');
-                    router.push('/');
-                }).catch(error => {
-                    console.log(error);
-                });
+        ...mapMutations(['setAuth', 'setUser']),
+        async logout(){
+            try {
+                await userLout();
+                this.setAuth(false);
+                this.setUser(null);
+                localStorage.removeItem('user');
+            } catch (e) {
+                console.log('Error');
+            }
         }
     }
 }
 </script>
 
-<style scoped>
+<style>
+.right-card__user-info-block{
+    @apply flex justify-between flex-col
+}
 
+.right-card__user-info-block>img{
+    @apply w-full object-cover rounded
+}
+
+.right-card__user-info-block>div{
+    @apply flex-grow px-4 relative
+}
+
+.right-card__user-info-block>div>strong{
+    @apply my-3 block text-center
+}
+
+.profile-exit{
+    @apply border-t-2 mt-2 pt-2
+}
+
+.menu{
+    @apply text-left
+}
 </style>

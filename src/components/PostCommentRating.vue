@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import api from "@/api";
+import { commentPostUp, commentPostDown } from '@/servises/post_servise';
 
 export default {
     name: "PostCommentRating",
@@ -23,32 +23,35 @@ export default {
         }
     },
     methods: {
-        up(){
+        async up(){
             if(!this.$store.state.auth){
                 return true;
             }
-            api.post('/post/comment/up', { id: this.comment_item.id }).then(response => {
-                this.comment_item.rating = response.rating;
-                this.comment_item.up_count = response.up_count;
-                this.comment_item.down_count = response.down_count;
-                this.comment_item.use_rating = response.use_rating;
 
-            }).catch(error => {
-                console.log(error);
-            });
+            try {
+                const resCommentPostUp = await commentPostUp(this.comment_item.id);
+                this.comment_item.rating = resCommentPostUp.rating;
+                this.comment_item.up_count = resCommentPostUp.up_count;
+                this.comment_item.down_count = resCommentPostUp.down_count;
+                this.comment_item.use_rating = resCommentPostUp.use_rating;
+            }catch (e) {
+                console.log(e);
+            }
         },
-        down(){
+        async down(){
             if(!this.$store.state.auth){
                 return true;
             }
-            api.post('post/comment/down', { id: this.comment.id }).then(response => {
-                this.comment_item.rating = response.rating;
-                this.comment_item.up_count = response.up_count;
-                this.comment_item.down_count = response.down_count;
-                this.comment_item.use_rating = response.use_rating;
-            }).catch(error => {
-                console.log(error);
-            });
+
+            try {
+                const resCommentPostUp = await commentPostDown(this.comment_item.id);
+                this.comment_item.rating = resCommentPostUp.rating;
+                this.comment_item.up_count = resCommentPostUp.up_count;
+                this.comment_item.down_count = resCommentPostUp.down_count;
+                this.comment_item.use_rating = resCommentPostUp.use_rating;
+            }catch (e) {
+                console.log(e);
+            }
         },
     }
 }

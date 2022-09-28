@@ -1,25 +1,32 @@
 import { createStore } from 'vuex';
-import menu from './menu';
+import { getUserData } from "@/helpers";
 
 import storeHomePage from '@/pages/home/storeHome';
 import storePostPage from '@/pages/post/storePost';
 
+import menu from './menu';
+
 export default createStore({
-  state: {
-    auth: !!localStorage.getItem('user'),
-    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
-    is_loading_page: false,
-    show_sidebar: false,
-    show_registration: false,
-    menu_top: menu,
+  state () {
+    return {
+      auth: !!getUserData(),
+      user: getUserData(),
+      is_loading_page: false,
+      show_sidebar: false,
+      show_registration: false,
+      menu_top: menu,
+    }
   },
+  // state: {
+  //   auth: !!getUserData(),
+  //   user: getUserData(),
+  //   is_loading_page: false,
+  //   show_sidebar: false,
+  //   show_registration: false,
+  //   menu_top: menu,
+  // },
   mutations: {
     setAuth(state, auth) {
-      /*
-      if(auth === false){
-        localStorage.removeItem('user_token');
-      }
-      */
       state.auth = auth;
     },
     setUser(state, user) {

@@ -52,11 +52,10 @@
 
 import { mapGetters } from 'vuex';
 
-import api from "@/api";
-
 import PostCommentCreate from "@/components/PostCommentCreate";
 import PostCommentRating from "@/components/PostCommentRating";
 import TreeItems from "@/components/TreeItems";
+import { getCommentsBranch } from "@/servises/post_servise";
 
 export default {
     components: {PostCommentRating, PostCommentCreate, TreeItems},
@@ -82,7 +81,7 @@ export default {
         onUpdateShowReply(){
             this.reply();
         },
-        openBranch(){
+        async openBranch(){
 
             this.open_branch = !this.open_branch;
 
@@ -92,13 +91,15 @@ export default {
             }
 
             this.load_branch = true;
-            api.get('/post/comments/branch/' + this.comment_item.id).then(response => {
-                this.children_comments = response.comments[0].children;
+
+            try {
+                const resGetCommentsBranch = await getCommentsBranch(this.comment_item.id);
+                this.children_comments = resGetCommentsBranch?.comments[0]?.children;
                 this.load_branch = false;
-            }).catch(error => {
+            } catch (e) {
                 this.load_branch = false;
-                console.log(error);
-            });
+                console.log(e);
+            }
         },
         onUpdateChildrenComments(comments){
             this.children_comments = comments;
@@ -108,13 +109,6 @@ export default {
     },
     computed: {
         ...mapGetters(['auth'])
-
-        /*
-        isAuth(){
-            console.log(this.$store.state.auth);
-            return this.$store.state.auth;
-        }
-        */
     }
 }
 </script>
