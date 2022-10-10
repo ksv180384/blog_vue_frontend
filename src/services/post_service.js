@@ -1,5 +1,5 @@
-import api from "@/api";
-import {loadPage, getData, putData, postData} from "@/helpers";
+
+import {loadPage, getData, putData, postData} from "@/services/service";
 
 export const getPostsPage = async () => {
     return  await loadPage('/', {});

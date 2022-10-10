@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { commentPostUp, commentPostDown } from '@/servises/post_servise';
+import { commentPostUp, commentPostDown } from '@/services/post_service';
 
 export default {
     name: "PostCommentRating",

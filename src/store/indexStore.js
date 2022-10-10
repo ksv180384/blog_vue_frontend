@@ -4,8 +4,6 @@ import { getUserData } from "@/helpers";
 import storeHomePage from '@/pages/home/storeHome';
 import storePostPage from '@/pages/post/storePost';
 
-import menu from './menu';
-
 export default createStore({
   state () {
     return {
@@ -14,17 +12,8 @@ export default createStore({
       is_loading_page: false,
       show_sidebar: false,
       show_registration: false,
-      menu_top: menu,
     }
   },
-  // state: {
-  //   auth: !!getUserData(),
-  //   user: getUserData(),
-  //   is_loading_page: false,
-  //   show_sidebar: false,
-  //   show_registration: false,
-  //   menu_top: menu,
-  // },
   mutations: {
     setAuth(state, auth) {
       state.auth = auth;
@@ -44,9 +33,6 @@ export default createStore({
     setIsLoadingPage(state, val){
       state.is_loading_page = val;
     }
-  },
-  actions: {
-
   },
   getters: {
     auth: state => state.auth,

@@ -13,7 +13,6 @@
 </template>
 
 <script>
-//import { makeid } from "@/helpers";
 
 export default {
     name: "Checkbox",
@@ -40,7 +39,7 @@ export default {
                 this.$emit("update:modelValue", value);
             }
         }
-    }
+    },
 }
 </script>
 

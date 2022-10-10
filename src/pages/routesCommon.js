@@ -36,14 +36,15 @@ export default [
         meta: { layout: 'AuthCommonLayout', auth: false },
     },
     {
-        path: '/:pathMatch(.*)*',
-        component: () => import('@/pages/404'),
-        meta: { layout: 'ErrorLayout', auth: false },
+        path: '/user/:id',
+        name: 'Profile',
+        component: () => import('@/pages/user/Profile'),
+        meta: { layout: 'DefaultCommonLayout', auth: false },
     },
     {
         path: '/user/profile',
-        name: 'Profile',
-        component: () => import('@/pages/user/Profile'),
+        name: 'ProfileEdit',
+        component: () => import('@/pages/user/ProfileEdit'),
         meta: { layout: 'DefaultCommonLayout', auth: true },
     },
     {
@@ -51,5 +52,10 @@ export default [
         name: 'MyPosts',
         component: () => import('@/pages/user/MyPosts'),
         meta: { layout: 'DefaultCommonLayout', auth: true },
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        component: () => import('@/pages/404'),
+        meta: { layout: 'ErrorLayout', auth: false },
     },
 ];

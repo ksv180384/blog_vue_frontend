@@ -55,7 +55,7 @@ main{
 }
 
 .content-right-card{
-    @apply sticky top-0 my-4 ml-6 shadow-lg p-2 rounded bg-white
+    @apply sticky top-0 my-4 ml-3 shadow-lg p-2 rounded bg-white
 }
 
 .posts-list{
@@ -142,30 +142,6 @@ main{
     @apply px-4 py-2
 }
 
-.form-group{
-    @apply flex flex-col mb-3
-}
-
-.form-group>label{
-    @apply text-sm font-semibold
-}
-
-.form-group>input{
-    @apply border-2 rounded px-4 py-1
-}
-
-.form-group.error>input{
-    @apply border-red-600
-}
-
-.form-group>small.error{
-    @apply hidden
-}
-
-.form-group.error>small.error{
-    @apply block text-red-600
-}
-
 .link{
     @apply hover:text-blue-400 transition duration-300
 }
@@ -220,13 +196,6 @@ main{
 
 .comment-children-toggle-open{
     @apply cursor-pointer absolute -left-8 text-gray-500 text-xs
-}
-
-input[type="text"]{
-    @apply border border-gray-300 rounded p-2 w-full focus:border-blue-300 outline-none
-}
-textarea[type="text"]:target{
-    @apply border-blue-300 
 }
 
 textarea{

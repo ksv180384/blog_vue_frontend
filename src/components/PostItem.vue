@@ -10,7 +10,7 @@
                 <div class="post-info-top">
                     <div class="post-author">
                         <img :src="post_item.author.avatar" alt="Автор">
-                        <a href="#" class="link">{{ post.author.name }}</a>
+                        <router-link :to="`/user/${post_item.author.id}`" class="link">{{ post.author.name }}</router-link>
                     </div>
                     <div class="post-date">{{ post_item.created_at_humans }}</div>
                 </div>

@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <router-link v-for="link in menu_top"
+        <router-link v-for="link in menu"
                      :key="link.url"
                      :to="link.url"
                      :exact="link.exact"
@@ -14,16 +14,17 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+import menu from '@/store/menu';
+
 export default {
     data(){
         return {
-            menu_top: this.$store.state.menu_top,
+            menu: menu,
         }
     },
     methods: {
-        sidebarToggle() {
-            this.$store.commit('sidebarToggle');
-        }
+        ...mapMutations(['sidebarToggle']),
     },
 }
 </script>

@@ -21,7 +21,7 @@
 
 <script>
 
-import { createPostComment } from "@/servises/post_servise";
+import { createPostComment } from "@/services/post_service";
 
 export default {
     name: "PostCommentCreate",
@@ -58,7 +58,8 @@ export default {
 
             try {
                 const resCreatePostComment = await createPostComment(commentData);
-                this.$emit('updateChildrenComments', resCreatePostComment?.comments[0]?.children);
+                const comments = this.branch_id ? resCreatePostComment?.comments[0]?.children : resCreatePostComment?.comments;
+                this.$emit('updateChildrenComments', comments);
                 this.showReply();
                 this.load = false;
             } catch (e) {

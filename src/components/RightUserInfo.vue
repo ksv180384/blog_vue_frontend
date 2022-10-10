@@ -32,7 +32,8 @@
 
 <script>
 import {mapGetters, mapMutations} from "vuex";
-import { userLout } from "@/servises/user_servise";
+import { userLout } from "@/services/user_service";
+import { removeLocalStorageUserData } from "@/helpers";
 
 export default {
     data() {
@@ -48,7 +49,7 @@ export default {
                 await userLout();
                 this.setAuth(false);
                 this.setUser(null);
-                localStorage.removeItem('user');
+                removeLocalStorageUserData();
             } catch (e) {
                 console.log('Error');
             }

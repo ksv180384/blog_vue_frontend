@@ -39,7 +39,7 @@ router.beforeEach((to, from, next) => {
     store.commit('storePostPage/setPostComments', null);
 
     // Проверка доступа не авторизовнным пользователям
-    const userAuth = !!localStorage.getItem('user');
+    const userAuth = store.getters.auth; //!!localStorage.getItem('user');
     const requestAuth = to.matched.some(record => record.meta.auth);
 
     if(requestAuth && !userAuth){

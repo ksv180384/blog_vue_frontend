@@ -20,7 +20,7 @@
 
 import { mapGetters, mapMutations } from 'vuex'
 import PostItem from "@/components/PostItem";
-import { getPostsNext, getPostsPage } from "@/servises/post_servise";
+import { getPostsNext, getPostsPage } from "@/services/post_service";
 import LoadNextContent from "@/components/LoadNextContent";
 
 export default {

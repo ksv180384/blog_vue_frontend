@@ -13,7 +13,7 @@
 <script>
 
 import { mapGetters } from "vuex";
-import { postUp, postDown } from "@/servises/post_servise";
+import { postUp, postDown } from "@/services/post_service";
 
 export default {
     name: "PostRating",

@@ -20,7 +20,8 @@
                     <i v-if="!open_branch && !load_branch" class="fa fa-plus-square"></i>
                     <i v-else-if="load_branch" class="fa fa-spinner fa-pulse"></i>
                     <i v-else class="fa fa-minus-square"></i>
-                    <span>раскрыть ветку</span>
+                    <span v-if="!open_branch">раскрыть ветку</span>
+                    <span v-else>закрыть ветку</span>
                 </div>
             </div>
 
@@ -55,7 +56,7 @@ import { mapGetters } from 'vuex';
 import PostCommentCreate from "@/components/PostCommentCreate";
 import PostCommentRating from "@/components/PostCommentRating";
 import TreeItems from "@/components/TreeItems";
-import { getCommentsBranch } from "@/servises/post_servise";
+import { getCommentsBranch } from "@/services/post_service";
 
 export default {
     components: {PostCommentRating, PostCommentCreate, TreeItems},
@@ -73,6 +74,9 @@ export default {
             open_branch: false,
             load_branch: false,
         }
+    },
+    computed: {
+        ...mapGetters(['auth'])
     },
     methods: {
         reply(){
@@ -106,9 +110,6 @@ export default {
             this.comment_item.children_count = this.children_comments.length;
             this.open_branch = true;
         },
-    },
-    computed: {
-        ...mapGetters(['auth'])
     }
 }
 </script>

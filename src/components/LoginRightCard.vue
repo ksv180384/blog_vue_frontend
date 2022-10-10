@@ -5,33 +5,28 @@
             <form action="#" @submit.prevent="submitLogin">
 
                 <InputGroup v-model.trim="email"
+                            @change="handleChange(e, 'email')"
+                            id="inputEmail"
+                            label="Email"
                             placeholder="Введите email"
                             :disabled="isDisabled"
-                            :class="{ error: error_response }"
-                            :error_message="error_response"
-                >
-                    Email
-                </InputGroup>
+                            :error_message="error_message.email"
+                />
+
                 <InputGroup v-model.trim="password"
+                            @change="handleChange(e, 'password')"
+                            id="inputPassword"
+                            label="Пароль"
                             type="password"
                             placeholder="Введите пароль"
                             :disabled="isDisabled"
-                            :class="{ error: error_response }"
-                            :error_message="error_response"
-                >
-                    Пароль
-                </InputGroup>
+                            :error_message="error_message.password"
+                />
 
-
-                <Checkbox v-model="remember">Запомнить</Checkbox>
+                <Checkbox v-model="remember" id="checkboxRemember">Запомнить</Checkbox>
 
                 <div class="text-center mt-6">
-                    <button class="btn btn-primary"
-                            type="submit"
-                            :disabled='isDisabled'
-                    >
-                        Войти
-                    </button>
+                    <ButtonForm type="submit" :load="isDisabled">Войти</ButtonForm>
                 </div>
             </form>
 
@@ -51,17 +46,21 @@
 
 <script>
 
-import useVuelidate from '@vuelidate/core';
-
 import { mapMutations } from "vuex";
+import useVuelidate from '@vuelidate/core';
+import {email, helpers, required} from "@vuelidate/validators";
 
 import SocialLogin from "@/components/SocialLogin";
 import Checkbox from "@/components/form/Checkbox";
 import InputGroup from "@/components/form/InputGroup";
 
-import { userLogin } from "@/servises/user_servise";
+import {getResponseErrorFieldsMessage, getValidateErrorMessage} from "@/helpers";
+import { userLogin } from "@/services/user_service";
+import ButtonForm from "@/components/form/ButtonForm";
+
 
 export default {
+    name: "LoginRightCard",
     setup(){
         return { v$: useVuelidate() }
     },
@@ -71,36 +70,53 @@ export default {
             password: '',
             remember: false,
             isDisabled: false,
-            error_response: null,
+            error_message: {},
+        }
+    },
+    validations() {
+        return {
+            email: {
+                required: helpers.withMessage(() => `Введите Email.`, required),
+                email: helpers.withMessage(() => `Неверный Email.`, email)
+            },
+            password: {
+                required: helpers.withMessage(() => `Введите Пароль.`, required),
+            },
         }
     },
     methods: {
         ...mapMutations(['setAuth', 'setUser', 'registrationToggle']),
         async submitLogin(){
-            this.error_response = null;
+            this.error_message = {};
             if(this.v$.$invalid){
                 this.v$.$touch();
+                this.error_message = getValidateErrorMessage(this.v$);
                 return true;
             }
             this.isDisabled = true;
             const dataForm = { email: this.email, password: this.password };
 
-            // try {
-            //     const resUserLogin = await userLogin(dataForm);
-            //     const user = resUserLogin.user;
-            //     this.isDisabled = false;
-            //
-            //     localStorage.setItem('user', JSON.stringify(user));
-            //     this.setAuth(true);
-            //     this.setUser(user);
-            // } catch (e) {
-            //     console.log(error.response);
-            //     this.error_response = error?.response?.data?.message;
-            //     this.isDisabled = false;
-            // }
+            try {
+                const resUserLogin = await userLogin(dataForm);
+                const user = resUserLogin.user;
+                const token = resUserLogin.token;
+                this.isDisabled = false;
 
+                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('token', token);
+                this.setAuth(true);
+                this.setUser(user);
+            } catch (e) {
+                this.error_message = getResponseErrorFieldsMessage(e);
+                this.isDisabled = false;
+            }
+
+        },
+        handleChange(e, field){
+            this.v$[field].$touch();
+            this.error_message = getValidateErrorMessage(this.v$);
         }
     },
-    components: { SocialLogin, InputGroup, Checkbox },
+    components: {ButtonForm, SocialLogin, InputGroup, Checkbox },
 }
 </script>
