@@ -2,9 +2,10 @@
     <div class="profile-edit-container">
         <form @submit.prevent="submitUserData">
             <div class="flex justify-between items-center pt-4 sm:p-6 sm:pb-0">
-                <img :src="avatar"
-                     alt=""
+                <img v-if="avatar" :src="avatar"
+                     :alt="name"
                      class="rounded mx-auto w-32 h-32 shadow-lg mr-3 object-cover">
+                <div v-else class="rounded mx-auto w-32 h-32 shadow-lg mr-3"></div>
 
                 <div class="grow">
                     <InputGroup :model-value="email"

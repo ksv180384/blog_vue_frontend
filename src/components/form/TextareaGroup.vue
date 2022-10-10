@@ -7,6 +7,7 @@
                       :id="id"
                       :placeholder="placeholder"
                       :disabled="disabled"
+                      :rows="rows"
             />
         </div>
 
@@ -39,6 +40,10 @@ export default {
         label: {
             type: String,
             default: '',
+        },
+        rows: {
+            type: Number,
+            default: 6
         },
         error_message: {
             type: String,

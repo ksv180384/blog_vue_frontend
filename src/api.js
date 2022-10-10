@@ -1,7 +1,8 @@
 import axios from 'axios';
 import router from "@/router/indexRouter";
 import store from '@/store/indexStore';
-import {removeLocalStorageUserData} from "@/helpers";
+import {actionIsAuth, initAuth, removeUserData} from "@/helpers";
+import { refreshToken } from "@/services/user_service";
 
 const api = axios.create({
     //baseURL: `${process.env.VUE_APP_API_URL}/api/v1/`,
@@ -32,19 +33,38 @@ function (error){
 api.interceptors.response.use(function (response) {
     // При положительном ответе сервера
 
-    if(response?.data?.auth_data){
-        store.commit('setAuth', true);
-        store.commit('setUser', response.data.auth_data);
-    }
+    initAuth(store, response?.data?.auth_data);
+
     return response.data;
-}, function (error) {
+}, async function (error) {
     // При ответе сервера с ошибкой
 
     // Если ошибка авторизации, то удаляем данные пользователя из localStorage
     if(error?.response?.status === 401){
-        store.commit('setAuth', false);
-        store.commit('setUser', null);
-        removeLocalStorageUserData();
+        console.log(error.response.data);
+        if(error.response.data.message === 'Unauthenticated.'){
+            try {
+                const resRefreshToken = await refreshToken();
+                localStorage.setItem('token', resRefreshToken.access_token);
+                api.defaults.headers.common['Authorization'] = 'Bearer ' + resRefreshToken.access_token;
+                return api.request(error.config);
+            } catch (e) {
+                removeUserData(store);
+                api.defaults.headers.common['Authorization'] = '';
+                console.log('error refresh');
+                return api.request(error.config);
+            }
+
+            // return api.post('refresh').then(res => {
+            //     localStorage.setItem('user_token', res.access_token);
+            //     api.defaults.headers.common['Authorization'] = 'Bearer ' + res.access_token;
+            //     return api.request(error.config);
+            // }).catch((errorRefresh) => {
+            //     localStorage.removeItem('user_token');
+            //     api.defaults.headers.common['Authorization'] = '';
+            //     return api.request(error.config);
+            // });
+        }
         router.push('/');
     }
 

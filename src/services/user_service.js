@@ -1,4 +1,5 @@
 import {getData, postData, putData} from "@/services/service";
+import api from "@/api";
 
 export const userLogin = async (params) => {
     return await postData('login', params);
@@ -27,4 +28,8 @@ export const profileUpdate = async (params) => {
 
 export const profile = async (id) => {
     return await getData(`user/${id}`);
+}
+
+export const refreshToken = async () => {
+    return await postData('refresh');
 }

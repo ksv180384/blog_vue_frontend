@@ -15,6 +15,21 @@ export const removeLocalStorageUserData = () => {
     localStorage.removeItem('user');
 }
 
+export const removeUserData = (store) => {
+    store.commit('setAuth', false);
+    store.commit('setUser', null);
+    removeLocalStorageUserData();
+}
+
+export const initAuth = (store, authData) => {
+    if(authData){
+        store.commit('setAuth', true);
+        store.commit('setUser', authData);
+    }else{
+        removeUserData(store);
+    }
+}
+
 /**
  * Генеррируем uid
  * @param length - длинна uid
