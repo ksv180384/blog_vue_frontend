@@ -13,6 +13,7 @@ export const getUserData = () => {
 export const removeLocalStorageUserData = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('remember');
 }
 
 export const removeUserData = (store) => {
@@ -28,6 +29,11 @@ export const initAuth = (store, authData) => {
     }else{
         removeUserData(store);
     }
+}
+
+export const getAuthToken = () => {
+    const t = localStorage.getItem('token');
+    return t ? t : '';
 }
 
 /**
@@ -72,6 +78,11 @@ export const getResponseErrorMessage = (resError) => {
     return firstError[0] ?? 'Ошибка';
 }
 
+export const responseErrorNote = (response) => {
+    const errorMessage = getResponseErrorMessage(response);
+    showNote(errorMessage, 'error');
+}
+
 /**
  * Получаем сообщения ошибки сервере в виде объекта
  * @param resError - ответ сервера
@@ -88,7 +99,7 @@ export const getResponseErrorFieldsMessage = (resError) => {
     }
 
     if(!errors){
-        resultErrorsFields.error = 'Ошибка';
+        resultErrorsFields.error = 'Ошибка.';
         return resultErrorsFields;
     }
 
@@ -120,4 +131,16 @@ export const getValidateErrorMessage = (validate, dirty = true) => {
     }
 
     return result;
+}
+
+export const setMetaTags = (title, metaTags) => {
+    document.title = title;
+
+    Object.entries(metaTags)
+        .forEach(([nameMetaTag, value]) => {
+            let metaEl = document.querySelector(`meta[name="${nameMetaTag}"]`);
+            if(!metaEl) return;
+
+            metaEl.setAttribute('content', value);
+    });
 }

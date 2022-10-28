@@ -7,7 +7,11 @@ html,body{
 }
 
 h1{
-    @apply font-semibold text-2xl
+    @apply font-semibold text-2xl my-3
+}
+
+h3{
+    @apply font-semibold text-xl my-3
 }
 
 .app{
@@ -51,7 +55,7 @@ main{
 }
 
 .content-center{
-    @apply w-full md:w-8/12
+    @apply grow shrink-0 basis-0
 }
 
 .content-right-card{
@@ -74,22 +78,6 @@ main{
     @apply text-right pb-4
 }
 
-.post-comment-rating{
-    @apply text-gray-500 flex items-center w-16 justify-between mr-2 text-sm
-}
-
-.post-comment-rating>i.fa-sort-up{
-    @apply cursor-pointer mt-3 hover:text-green-500
-}
-
-.post-comment-rating>i.fa-sort-down{
-    @apply cursor-pointer -mt-3 hover:text-red-600
-}
-
-.post-comment-rating>i{
-    @apply text-2xl
-}
-
 .post-comment-author{
     @apply flex justify-start items-center
 }
@@ -107,7 +95,7 @@ main{
 }
 
 .content-right{
-    @apply hidden w-4/12 sticky top-0 md:block
+    @apply hidden lg:w-72 md:w-52 sticky top-0 md:block
 }
 
 .right-card-header{
@@ -220,10 +208,6 @@ textarea:target{
 
 .btn-open-reply>span{
     @apply ml-2 hover:underline 
-}
-
-.preloader{
-    @apply fixed top-2 right-1 z-10 px-8 py-2 bg-white shadow
 }
 
 .load-img{

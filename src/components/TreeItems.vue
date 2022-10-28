@@ -9,7 +9,10 @@
             <div>
                 <div class="post-comment-info">
 
-                    <PostCommentRating :comment="item"/>
+                    <PostCommentRating :id="item.id"
+                                       :rating="item.rating"
+                                       :use_rating="item.use_rating"
+                    />
 
                     <div class="post-comment-author">
                         <img :src="item.author.avatar" alt="Автор">
@@ -36,7 +39,7 @@
             />
 
         </div>
-        <div v-if="item.children.length && open">
+        <div class="mt-3" v-if="item.children.length && open">
             <TreeItems v-for="ch in item.children"
                        :item="ch"
                        :key="ch.id"

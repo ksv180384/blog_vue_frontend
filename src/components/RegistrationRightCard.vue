@@ -70,8 +70,8 @@
 import {mapMutations} from "vuex";
 import { getResponseErrorFieldsMessage, getValidateErrorMessage } from "@/helpers";
 import { userRegistration } from "@/services/user_service";
-import { required, email, minLength, sameAs, helpers } from '@vuelidate/validators';
 import useVuelidate from '@vuelidate/core';
+import { required, email, minLength, sameAs, helpers } from '@vuelidate/validators';
 import SocialLogin from "@/components/SocialLogin";
 import InputGroup from "@/components/form/InputGroup";
 import ButtonForm from "@/components/form/ButtonForm";

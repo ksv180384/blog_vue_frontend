@@ -1,8 +1,8 @@
 import axios from 'axios';
 import router from "@/router/indexRouter";
 import store from '@/store/indexStore';
-import {actionIsAuth, initAuth, removeUserData} from "@/helpers";
-import { refreshToken } from "@/services/user_service";
+import { initAuth, getAuthToken, removeUserData } from "@/helpers";
+import { refreshToken } from '@/services/user_service';
 
 const api = axios.create({
     //baseURL: `${process.env.VUE_APP_API_URL}/api/v1/`,
@@ -18,10 +18,11 @@ const api = axios.create({
 
 api.interceptors.request.use(function (config){
 
-    //const user = getUserData();
-    const token = localStorage.getItem('token');
+    const token = getAuthToken();
 
-    config.headers['Authorization'] = 'Bearer ' + token;
+    if(token){
+        config.headers['Authorization'] = 'Bearer ' + token;
+    }
 
     return config;
 },
@@ -30,10 +31,20 @@ function (error){
 });
 
 // Обработка ответа сервера для всех заросов
-api.interceptors.response.use(function (response) {
+api.interceptors.response.use(async function (response) {
     // При положительном ответе сервера
 
-    initAuth(store, response?.data?.auth_data);
+    // Для обновления токена вторизации и выхода не перезависываем данные пользователя
+    if(response.config.url !== 'refresh' && response.config.url !== 'logout'){
+        // Если пользователь авторизован, а данные пользователя не пришли, то обновляем токен авторизации
+        if(store.getters.auth && !response.data.auth_data && store.getters.remember){
+            const resRefreshToken = await refreshToken();
+            localStorage.setItem('token', resRefreshToken.access_token);
+            api.defaults.headers.common['Authorization'] = 'Bearer ' + resRefreshToken.access_token;
+            return api.request(response.config);
+        }
+        initAuth(store, response.data.auth_data);
+    }
 
     return response.data;
 }, async function (error) {
@@ -41,35 +52,35 @@ api.interceptors.response.use(function (response) {
 
     // Если ошибка авторизации, то удаляем данные пользователя из localStorage
     if(error?.response?.status === 401){
-        console.log(error.response.data);
-        if(error.response.data.message === 'Unauthenticated.'){
+        if(error.response.data.message === 'Unauthenticated.' && store.getters.remember){
             try {
                 const resRefreshToken = await refreshToken();
                 localStorage.setItem('token', resRefreshToken.access_token);
                 api.defaults.headers.common['Authorization'] = 'Bearer ' + resRefreshToken.access_token;
+                //console.log('refresh');
                 return api.request(error.config);
             } catch (e) {
+                //console.log('refresh error');
                 removeUserData(store);
                 api.defaults.headers.common['Authorization'] = '';
-                console.log('error refresh');
-                return api.request(error.config);
+                router.push('/');
+                return Promise.reject(error);
             }
-
-            // return api.post('refresh').then(res => {
-            //     localStorage.setItem('user_token', res.access_token);
-            //     api.defaults.headers.common['Authorization'] = 'Bearer ' + res.access_token;
-            //     return api.request(error.config);
-            // }).catch((errorRefresh) => {
-            //     localStorage.removeItem('user_token');
-            //     api.defaults.headers.common['Authorization'] = '';
-            //     return api.request(error.config);
-            // });
         }
+        removeUserData(store);
+        api.defaults.headers.common['Authorization'] = '';
         router.push('/');
+        return Promise.reject(error);
     }
 
-    if(error?.response?.status !== 422){
-        alert('error');
+    if(error.config.method === 'get'){
+        store.commit('setIsLoadingPage', false);
+        router.push('/404');
+    }
+
+    if(error?.response?.status !== 422 && error.config.method !== 'get'){
+        store.commit('setError', 'Ошибка. Попробуйте позже.');
+        return Promise.reject(error);
     }
 
     return Promise.reject(error);

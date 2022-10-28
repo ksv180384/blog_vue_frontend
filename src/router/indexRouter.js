@@ -16,6 +16,7 @@ const router = createRouter({
             return {
                 el: to.hash,
                 behavior: 'smooth',
+                top: to.meta?.top || 0
             }
         }
         return savedPosition ||
@@ -26,11 +27,11 @@ const router = createRouter({
     },
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach( (to, from, next) => {
     // Сохраняем позицию скролла на текущей странице (только для главной страницы)
     from.matched.some(record => {
-        if(record.name === 'IndexPage'){
-            record.meta.scrollTop = window.pageYOffset;
+        if(record.name === 'HomePage'){
+            record.meta.scrollTop = window.scrollY;
         }
     });
 

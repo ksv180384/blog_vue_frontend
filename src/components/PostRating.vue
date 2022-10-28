@@ -1,10 +1,23 @@
 <template>
     <div class="post-item-left">
-        <div @click.prevent="handleRating('up')" class="left-rating-up" :class="{ active: this.use_rating == 1 }">
+        <div @click.prevent="handleRating('up')"
+             class="left-rating-up"
+             :class="{ active: use_rating === 1 }"
+        >
             <i class="fas fa-sort-up -mb-3"></i>
         </div>
-        <div class="left-rating-count" :class="{ 'text-red-600': this.rating < 0 }">{{ this.rating }}</div>
-        <div @click.prevent="handleRating('down')" class="left-rating-down" :class="{ active: this.use_rating === 2 }">
+        <div class="left-rating-count">
+            <span v-if="!is_loading" :class="{ 'text-red-600': rating < 0 }">
+                {{ rating }}
+            </span>
+            <span v-else>
+                <i class="fa fa-spinner fa-pulse"></i>
+            </span>
+        </div>
+        <div @click.prevent="handleRating('down')"
+             class="left-rating-down"
+             :class="{ active: use_rating === 2 }"
+        >
             <i class="fas fa-sort-down -mt-2.5"></i>
         </div>
     </div>
@@ -34,6 +47,7 @@ export default {
       return {
           rating: this.post_rating,
           use_rating: this.post_use_rating,
+          is_loading: false,
       }
     },
     computed: {
@@ -41,9 +55,12 @@ export default {
     },
     methods: {
         async handleRating(action){
-            if(!this.auth){
+            if(!this.auth || this.is_loading){
                 return true;
             }
+
+            this.is_loading = true;
+
             try {
                 let resPostRating;
                 if(action === 'up'){
@@ -54,8 +71,10 @@ export default {
                 const post = resPostRating?.post;
                 this.rating = post.rating;
                 this.use_rating = post.use_rating;
+                this.is_loading = false;
             } catch (e) {
                 console.log(e);
+                this.is_loading = false;
             }
         },
     }

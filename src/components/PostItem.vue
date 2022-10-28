@@ -16,7 +16,9 @@
                 </div>
 
                 <h2 class="post-header">
-                    <router-link :to="{ path: '/post/' + post_item.id}">{{ post_item.title }}</router-link>
+                    <router-link :to="{ path: '/post/' + post_item.id}" class="link">
+                        {{ post_item.title }}
+                    </router-link>
                 </h2>
             </div>
 
@@ -90,6 +92,6 @@ export default {
 }
 
 .post-item-content{
-    @apply p-3
+    @apply p-3 whitespace-pre-line;
 }
 </style>

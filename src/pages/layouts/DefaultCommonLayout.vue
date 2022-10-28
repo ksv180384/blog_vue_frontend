@@ -4,6 +4,7 @@
         <div class="content">
             <div class="content-center">
                 <router-view/>
+                <ScrollUp/>
             </div>
             <div class="content-right">
                 <template v-if="!auth">
@@ -59,25 +60,30 @@
 
 <script>
 
+import {mapGetters} from "vuex";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import LoginRightCard from "@/components/LoginRightCard";
 import RegistrationRightCard from "@/components/RegistrationRightCard";
 import RightUserInfo from "@/components/RightUserInfo";
-import {mapGetters} from "vuex";
+import ScrollUp from "@/components/ScrollUp";
 
 export default {
-    data() {
-        return {}
+    computed: {
+        ...mapGetters(['show_sidebar', 'show_registration', 'auth', 'menu_top'])
     },
-    components: {RightUserInfo, RegistrationRightCard, LoginRightCard, Header, Footer},
     methods: {
         sidebarToggle() {
             this.$store.commit('sidebarToggle');
         },
     },
-    computed: {
-        ...mapGetters(['show_sidebar', 'show_registration', 'auth', 'menu_top'])
+    components: {
+        ScrollUp,
+        RightUserInfo,
+        RegistrationRightCard,
+        LoginRightCard,
+        Header,
+        Footer
     },
 }
 </script>

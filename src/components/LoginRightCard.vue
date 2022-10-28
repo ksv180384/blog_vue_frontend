@@ -9,7 +9,7 @@
                             id="inputEmail"
                             label="Email"
                             placeholder="Введите email"
-                            :disabled="isDisabled"
+                            :disabled="is_disabled"
                             :error_message="error_message.email"
                 />
 
@@ -19,14 +19,14 @@
                             label="Пароль"
                             type="password"
                             placeholder="Введите пароль"
-                            :disabled="isDisabled"
+                            :disabled="is_disabled"
                             :error_message="error_message.password"
                 />
 
                 <Checkbox v-model="remember" id="checkboxRemember">Запомнить</Checkbox>
 
                 <div class="text-center mt-6">
-                    <ButtonForm type="submit" :load="isDisabled">Войти</ButtonForm>
+                    <ButtonForm type="submit" :load="is_disabled">Войти</ButtonForm>
                 </div>
             </form>
 
@@ -69,7 +69,7 @@ export default {
             email: '',
             password: '',
             remember: false,
-            isDisabled: false,
+            is_disabled: false,
             error_message: {},
         }
     },
@@ -85,7 +85,7 @@ export default {
         }
     },
     methods: {
-        ...mapMutations(['setAuth', 'setUser', 'registrationToggle']),
+        ...mapMutations(['setAuth', 'setUser', 'setRemember', 'registrationToggle']),
         async submitLogin(){
             this.error_message = {};
             if(this.v$.$invalid){
@@ -93,22 +93,27 @@ export default {
                 this.error_message = getValidateErrorMessage(this.v$);
                 return true;
             }
-            this.isDisabled = true;
+            this.is_disabled = true;
             const dataForm = { email: this.email, password: this.password };
 
             try {
                 const resUserLogin = await userLogin(dataForm);
                 const user = resUserLogin.user;
                 const token = resUserLogin.token;
-                this.isDisabled = false;
+                this.is_disabled = false;
 
                 localStorage.setItem('user', JSON.stringify(user));
                 localStorage.setItem('token', token);
+                if(this.remember){
+                    this.setRemember(true);
+                    localStorage.setItem('remember', true);
+                }
                 this.setAuth(true);
                 this.setUser(user);
             } catch (e) {
+                this.password = '';
                 this.error_message = getResponseErrorFieldsMessage(e);
-                this.isDisabled = false;
+                this.is_disabled = false;
             }
 
         },

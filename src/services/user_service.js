@@ -1,4 +1,4 @@
-import {getData, postData, putData} from "@/services/service";
+import {getData, loadPage, postData, putData} from "@/services/service";
 import api from "@/api";
 
 export const userLogin = async (params) => {
@@ -13,8 +13,8 @@ export const userLout = async () => {
     return await postData('logout');
 }
 
-export const profileEdit = async () => {
-    return await getData('user/profile/edit');
+export const profileEditPage = async () => {
+    return await loadPage('user/profile/edit');
 }
 
 export const profileUpdate = async (params) => {
@@ -23,11 +23,11 @@ export const profileUpdate = async (params) => {
     //         'Content-Type': 'multipart/form-data',
     //     }
     // }
-    return await postData('user/profile/update', params, config);
+    return await postData('user/profile/update', params);
 }
 
-export const profile = async (id) => {
-    return await getData(`user/${id}`);
+export const profilePage = async (id) => {
+    return await loadPage(`user/${id}`);
 }
 
 export const refreshToken = async () => {

@@ -7,5 +7,9 @@ import store from '@/store/indexStore';
 
 import '@/assets/tailwind.css';
 
-createApp(App).use(store).use(router).mount('#app')
+const app = createApp(App);
+app.use(store).use(router);
+
+app.mount('#app');
+
 

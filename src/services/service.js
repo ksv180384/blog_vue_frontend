@@ -9,7 +9,6 @@ export const loadPage = async (path, params) => {
 }
 
 export const getData = async (path, params) => {
-
     return await api.get(path, { params: { ...params } });
 }
 

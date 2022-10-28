@@ -2,9 +2,11 @@
     <div class="profile-edit-container">
         <form @submit.prevent="submitUserData">
             <div class="flex justify-between items-center pt-4 sm:p-6 sm:pb-0">
-                <img v-if="avatar" :src="avatar"
+                <img v-if="avatar"
+                     :src="avatar"
                      :alt="name"
-                     class="rounded mx-auto w-32 h-32 shadow-lg mr-3 object-cover">
+                     class="rounded mx-auto w-32 h-32 shadow-lg mr-3 object-cover"
+                />
                 <div v-else class="rounded mx-auto w-32 h-32 shadow-lg mr-3"></div>
 
                 <div class="grow">
@@ -19,6 +21,8 @@
                                 id="inputName"
                                 left_text="Имя"
                                 placeholder="Введите ваше имя"
+                                :error_message="error_message.name"
+                                :class="{ error: error_message.name }"
                                 :disabled="submit_load"
                     />
                 </div>
@@ -36,7 +40,9 @@
                              ref="profile_image_upload"
                              id="uploadAvatar"
                              label="Загрузить фотографию"
+                             :max_size=10
                              description="PNG, JPG, GIF максимальный размер 10Мб"
+                             :error_message="error_message.avatar_file"
                 />
 
             </div>
@@ -48,62 +54,80 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+import useVuelidate from '@vuelidate/core';
+import { required, helpers } from '@vuelidate/validators';
+import { profileUpdate } from "@/services/user_service";
+import { getResponseErrorFieldsMessage, getValidateErrorMessage, setMetaTags } from "@/helpers";
+
 import InputGroup from '@/components/form/InputGroup';
 import TextareaGroup from "@/components/form/TextareaGroup";
-import { profileEdit, profileUpdate } from "@/services/user_service";
 import ImageUpload from "@/components/form/ImageUpload";
 import ButtonForm from "@/components/form/ButtonForm";
-import { mapMutations } from "vuex";
+import store from "@/store/indexStore";
+
 
 export default {
     name: "ProfileEdit",
+    setup(){
+        return { v$: useVuelidate() }
+    },
+    async beforeRouteEnter(to, from, next) {
+        await store.dispatch('storeProfileEditPage/loaDataPage');
+        setMetaTags(`Редактирование профиля - блог`, { description: `Редактирование профиля - блог` });
+        next();
+    },
     data(){
         return {
-            email: '',
-            name: '',
-            avatar: '',
-            about: '',
+            email: store.getters["storeProfileEditPage/email"],
+            name: store.getters["storeProfileEditPage/name"],
+            avatar: store.getters["storeProfileEditPage/avatar"],
+            about: store.getters["storeProfileEditPage/about"],
             avatar_file: '',
+            error_message: {},
             submit_load: false,
         }
     },
-    mounted() {
-        this.loadData();
+    validations(){
+        return {
+            name: {
+                required: helpers.withMessage(() => `Введите ваше имя.`, required),
+            },
+        }
     },
     methods: {
-        ...mapMutations(['setUser']),
-        async loadData(){
-            try {
-                const resProfileEdit = await profileEdit();
-                const user = resProfileEdit.user;
-                this.email = user.email;
-                this.name = user.name;
-                this.about = user.about;
-                this.avatar = user.avatar;
-            } catch (e) {
-                console.log(e);
-            }
-        },
+        ...mapMutations('storeProfileEditPage', ['setName', 'setAvatar', 'setAbout']),
         async submitUserData(){
+            if(this.v$.$invalid){
+                this.v$.$touch();
+
+                this.error_message = getValidateErrorMessage(this.v$);
+                return true;
+            }
+
             const formData = new FormData();
             formData.append('_method', 'PUT');
             formData.append('name', this.name);
             formData.append('about', this.about);
-            formData.append('avatar', this.avatar_file);
+            formData.append('avatar_file', this.avatar_file);
 
+            this.error_message = '';
             this.submit_load = true;
             try{
                 const resProfileUpdate = await profileUpdate(formData);
                 const user = resProfileUpdate.user;
-                this.setUser(user);
-                this.name = user.name;
+                localStorage.setItem('user', JSON.stringify(user));
+                this.setName(user.name);
+                this.setAvatar(user.avatar);
+                this.setAbout(user.about);
                 this.avatar = user.avatar;
-                this.about = user.about;
                 this.avatar_file = '';
                 this.submit_load = false;
                 this.$refs.profile_image_upload.removeImg();
             } catch (e) {
                 this.submit_load = false;
+                this.error_message = getResponseErrorFieldsMessage(e);
+                console.log(this.error_message);
             }
         }
     },

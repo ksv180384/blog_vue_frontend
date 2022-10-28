@@ -1,43 +1,61 @@
 <template>
     <div class="page-content">
         <h1>О нас</h1>
-        <router-link
-            :to="{
-        name: 'About',
-        hash: '#eee'
-    }"
-        >
-            1111111111
-        </router-link>
-        <div>
+        <div class="about-menu">
+            <div class="about-menu-section">
+                <router-link :to="{name: 'About', hash: '#chapter_1'}" class="active">Chapter 1</router-link>
+                <router-link :to="{name: 'About', hash: '#chapter_2'}">Chapter 2</router-link>
+                <router-link :to="{name: 'About', hash: '#chapter_3'}">Chapter 3</router-link>
+                <router-link :to="{name: 'About', hash: '#chapter_4'}">Chapter 4</router-link>
+                <router-link :to="{name: 'About', hash: '#chapter_5'}">Chapter 5</router-link>
+            </div>
+            <div class="about-menu-section">
+                <router-link :to="{name: 'About', hash: '#chapter_6'}">Chapter 6</router-link>
+                <router-link :to="{name: 'About', hash: '#chapter_7'}">Chapter 7</router-link>
+                <router-link :to="{name: 'About', hash: '#chapter_8'}">Chapter 8</router-link>
+                <router-link :to="{name: 'About', hash: '#chapter_9'}">Chapter 9</router-link>
+                <router-link :to="{name: 'About', hash: '#chapter_10'}">Chapter 10</router-link>
+            </div>
+        </div>
+        <div id="aboutContent">
+            <h3 id="chapter_1" class="chapter-header">Chapter 1</h3>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad beatae eaque molestias nihil placeat, quod repellat rerum. Aut blanditiis, deleniti facere labore necessitatibus nihil, non odio, omnis qui sed vel vitae. Adipisci dolorem explicabo suscipit! Dolorum fugiat labore libero magni perferendis quis, reprehenderit sapiente vero! Alias, aliquam culpa error laboriosam perferendis veniam. A accusamus ad adipisci alias amet commodi cumque dolor dolorum eaque eligendi enim eum facere illo ipsam ipsum iste iusto laboriosam, maxime nesciunt non nostrum perferendis, placeat, quis repellat sed temporibus voluptates. Accusantium ad aliquam aperiam atque, corporis cumque deserunt dicta dignissimos dolorem doloremque dolorum ducimus eos est eveniet exercitationem facere illum laudantium magnam maiores minus molestiae nam neque numquam quas quisquam ratione sequi similique sint soluta sunt ut vero voluptates voluptatibus. Ab adipisci aperiam commodi consequuntur corporis delectus, distinctio doloribus eaque ipsam necessitatibus nobis ratione recusandae reiciendis, vel voluptas voluptatem voluptates. Adipisci animi blanditiis debitis delectus deleniti doloremque, doloribus ea eaque eligendi esse fugiat inventore ipsam ipsum laboriosam laudantium neque odit pariatur provident quidem sequi tempora tenetur unde ut vel voluptates! Eaque, odio veniam? Animi corporis ea harum ipsam maxime omnis sit tempora totam vitae voluptatibus. Accusamus aperiam architecto aspernatur beatae consectetur delectus distinctio eveniet facere fuga fugiat id ipsam ipsum itaque laborum magnam magni maxime minus molestiae molestias necessitatibus nulla odio officiis perspiciatis porro praesentium quaerat quam quisquam reprehenderit, sunt tempora tempore temporibus vel veniam. Accusamus amet assumenda aut debitis est id, iste itaque, laborum magni maiores minus modi natus neque nulla numquam optio praesentium, quasi quibusdam similique sint ut vel voluptatibus. Ab aperiam at corporis cupiditate delectus dicta dolorem enim eos et eveniet facilis illum ipsam iusto molestiae necessitatibus, nesciunt nobis nulla officia officiis pariatur quae quas reiciendis sapiente totam ut velit voluptas voluptatem. Animi debitis dolores eveniet iste laborum odio possimus saepe suscipit voluptas?
             </p>
+            <h3 id="chapter_2" class="chapter-header">Chapter 2</h3>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aut consequuntur distinctio ducimus enim error eum eveniet facere, fugiat in ipsa ipsum laborum, laudantium magni necessitatibus nostrum nulla officiis omnis pariatur porro quas, reiciendis sint sit? Architecto enim facere, ipsam molestias omnis provident quos veniam voluptatibus. Ad consectetur culpa deleniti dignissimos, dolores earum error est ipsam iure, molestiae natus nesciunt omnis, porro quisquam recusandae? Laudantium magni molestiae quod saepe sed! Assumenda autem consectetur cum eaque est excepturi, fugit illum ipsum laboriosam modi quaerat quasi quibusdam quidem recusandae reprehenderit ut voluptates! Architecto aut culpa doloribus earum illo laboriosam nemo sit tempora? Animi aperiam, aut corporis dolores doloribus ducimus error et ex fugiat id libero minima minus mollitia non, officia possimus rerum, sequi tenetur unde ut. Consequuntur ex facere laboriosam minus nostrum nulla quia vel velit, voluptas. Aperiam dolorum optio possimus quae quaerat. A consequuntur modi quod. Culpa deleniti dolor eos ex expedita facere fuga laborum, mollitia, officia quasi quis reiciendis repudiandae sequi tenetur vero vitae voluptatum. Aspernatur corporis, cumque ducimus eius expedita facilis, hic id iste laudantium magni molestiae, molestias nam neque non numquam quidem sunt voluptate? Ad aspernatur aut commodi deleniti dolore earum et eveniet, expedita, facilis inventore ipsa iusto laudantium maiores modi nam necessitatibus nihil nisi nostrum porro quae reiciendis repudiandae saepe sapiente temporibus totam veniam veritatis voluptates? Accusamus asperiores aspernatur autem blanditiis cumque dolorum facilis incidunt neque nobis, nulla, numquam odio officia praesentium quaerat quasi quos, sapiente suscipit! Ad atque autem corporis cupiditate deserunt distinctio dolor doloremque ducimus et fuga ipsa, ipsam ipsum nemo nulla odit porro quidem quo quos sint unde! Ab architecto consequatur consequuntur culpa cumque dolor error esse illum, incidunt ipsum iusto libero maxime minus nesciunt obcaecati odit optio perspiciatis provident quasi qui quis quos ratione rem repellat sequi soluta tempora ut vel veniam voluptas.
             </p>
+            <h3 id="chapter_3" class="chapter-header">Chapter 3</h3>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias atque autem blanditiis consectetur consequuntur cupiditate distinctio dolorem doloribus facere hic id impedit iure modi molestiae necessitatibus nihil nulla obcaecati omnis quam quia quibusdam, rerum similique temporibus tenetur ut velit veritatis. Ad aut, ea eaque eos esse eveniet expedita fugit illo impedit in ipsam laboriosam magni necessitatibus neque nihil nisi pariatur qui quo reiciendis rem repellat saepe sequi tempora tempore ullam veritatis voluptatem. Ad adipisci alias aliquam, at beatae delectus dolor dolorem doloribus dolorum eius, est ex ipsum modi molestiae mollitia nobis numquam officia rem reprehenderit ullam, unde vitae voluptatum? Aspernatur deleniti, dicta, dolorem ducimus eius in inventore laborum natus necessitatibus, officiis quod voluptas? Aliquid blanditiis commodi consectetur dolores, ducimus ea esse fugit inventore mollitia necessitatibus, quidem quis recusandae rem repellat sapiente similique tempore. Amet animi aperiam aspernatur deserunt distinctio dolor dolore ducimus et exercitationem explicabo, facere fuga fugiat laboriosam odit officia officiis omnis possimus recusandae repellat voluptate. Architecto atque cum et eum iure minima, mollitia placeat quos sunt. Cum earum facere itaque iusto neque numquam odit? Blanditiis consequatur dicta dolorum, earum enim est illo, inventore ipsum maxime, neque non officiis omnis quaerat quia quis quod quos recusandae repellendus soluta temporibus? Earum eos, nam. Dolorem, doloremque enim harum iusto pariatur reprehenderit sequi. Eligendi labore laborum maxime omnis pariatur ullam ut. A accusamus, alias aliquam amet animi aspernatur assumenda cupiditate deleniti dolorem ea eius explicabo fugit harum incidunt ipsum iure maiores nam natus nesciunt nihil nisi nobis odio, officiis possimus quia quibusdam quo quos sequi similique temporibus ullam ut vel vero. Amet consequuntur cumque dolore illum ipsa itaque porro quaerat reprehenderit sapiente voluptatibus! Ab accusantium aperiam architecto assumenda aut consectetur consequatur corporis cumque dolore doloribus ducimus eius illo illum ipsum iusto laudantium maxime molestias neque, nesciunt non perferendis, praesentium soluta tenetur voluptates!
             </p>
+            <h3 id="chapter_4" class="chapter-header">Chapter 4</h3>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus ducimus, exercitationem explicabo labore maxime molestias officia quod ratione saepe sapiente! At dicta ipsa sed veritatis voluptate! Architecto aut cum dolores hic nemo ut voluptatem? Assumenda autem blanditiis dolorem earum eos, eum, ex in inventore magni, mollitia nisi nulla quisquam sapiente sequi sint sit tenetur unde voluptatibus. Aliquam aliquid, at commodi consequatur dolore dolores dolorum eos et eum excepturi expedita, fugiat id impedit inventore ipsa laudantium magnam magni nemo neque odit officiis pariatur quae quidem quo ratione repellat saepe sequi soluta temporibus vel. A ab et eum explicabo in sequi sunt. Accusamus ad animi assumenda consequatur debitis deleniti distinctio doloribus facere, nam natus obcaecati odit, officia possimus quae quasi repudiandae sequi temporibus totam ut, voluptatibus! Animi consequatur cupiditate debitis distinctio doloribus dolorum eaque enim est impedit, iste itaque iusto labore laudantium molestias natus nihil pariatur quasi quibusdam sequi tenetur totam unde vel vero voluptatibus voluptatum. Ab ad adipisci est ex facilis, ipsa ipsam magni minima molestiae, natus nisi quaerat, repudiandae sint velit vero? Adipisci aspernatur assumenda, beatae cumque dignissimos est excepturi harum magnam mollitia, non pariatur similique velit. Accusamus adipisci at autem consectetur culpa cum delectus ducimus esse est exercitationem, facere fuga id impedit incidunt, iste laborum laudantium libero molestiae molestias, nesciunt nihil numquam quas ratione rerum sint sit sunt voluptas! A ab, architecto aspernatur consequatur corporis cumque deleniti dolores enim, error esse exercitationem expedita fugiat iste iusto nihil nisi nostrum optio perferendis porro quidem quisquam repudiandae saepe tenetur ut veniam vitae voluptates? Eaque eum illo repudiandae sint voluptatibus? Ad aliquid asperiores aspernatur at atque, consectetur corporis ea, eligendi error ex facere illum ipsa minima nesciunt nihil pariatur quae quidem quo, reiciendis repellat repellendus sapiente sint suscipit tempore totam vitae voluptas voluptatem! A, ab aliquam nihil quasi repellendus tempora ut. Voluptatem.
             </p>
+            <h3 id="chapter_5" class="chapter-header">Chapter 5</h3>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab, aliquam amet assumenda atque consectetur cupiditate dolores doloribus enim et eveniet excepturi facere iste iure iusto numquam odit, pariatur provident quibusdam quo ratione reiciendis repellat tempora tenetur vel veniam, voluptatibus! Aperiam atque aut cum cumque delectus dolore doloremque eaque, facere ipsum labore molestiae optio quibusdam, sequi velit, veritatis. Amet animi dignissimos dolores ducimus eaque et eum ex excepturi in ipsa labore minima nam nesciunt perferendis placeat provident quaerat quis ratione rerum sapiente sed sit soluta ullam unde ut veniam voluptatem, voluptates. Cum enim esse facere fuga laboriosam mollitia necessitatibus praesentium quod quos voluptatum. Atque consequatur dicta earum eius error esse eum ex impedit ipsa maxime minima mollitia, natus non placeat quo rerum totam. Ab, eaque esse facere fugiat harum laudantium odit omnis rerum soluta! Accusamus, amet consectetur consequatur cupiditate dolor, dolorum excepturi id laborum minus nesciunt quam quos, reiciendis repellat saepe sit soluta ut! A adipisci aliquid asperiores at beatae cumque dicta dignissimos dolorum eaque, error eveniet excepturi fugiat fugit illum iure laborum maiores molestiae, molestias natus necessitatibus nobis nostrum nulla officia officiis quae quis reiciendis sapiente sint suscipit tenetur veniam vero voluptas voluptates. Ab adipisci aliquam animi asperiores atque aut beatae consectetur cumque ducimus eaque eligendi enim hic ipsam ipsum iusto libero magnam magni maiores non praesentium provident quae quidem, quis quisquam repellendus similique tempore voluptatum. Accusantium ad amet blanditiis dolore doloremque ipsum non quibusdam quidem rem unde? At culpa earum ex explicabo illo minus mollitia odio quo, sapiente velit. Alias animi, asperiores consequatur cupiditate distinctio dolore doloremque dolorum ea earum, eius eligendi eos eum fugit illum iure labore laboriosam nostrum quas quibusdam recusandae reiciendis rem repellendus rerum sed sequi sint soluta ut veritatis voluptate voluptatibus. Ab amet atque commodi repudiandae voluptatem. Cumque doloremque esse, pariatur quidem repellendus voluptas.
             </p>
+            <h3 id="chapter_6" class="chapter-header">Chapter 6</h3>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto aspernatur eum facere laudantium molestias quod quos similique sit! Ab aspernatur aut corporis debitis explicabo facilis impedit, in ipsa, mollitia nihil porro quae quis rem repellendus saepe. Architecto consequatur delectus dicta ea earum impedit, in ipsa magnam necessitatibus officiis porro quidem repellat. A ad alias animi asperiores, aspernatur corporis culpa, dolor dolorem dolorum eius enim eum ex excepturi expedita in inventore iste iure laborum natus necessitatibus nemo nihil perferendis quaerat quam repudiandae tempora tenetur veniam veritatis vero voluptatibus? A deserunt eius eum ipsam laudantium minus perspiciatis quisquam, repellat sed! Aliquam consequatur debitis fugiat laudantium libero molestiae nemo officia sequi! Exercitationem, maxime natus nisi quasi quidem repudiandae saepe suscipit tempore ullam voluptatem. A ab accusamus, accusantium commodi eaque earum enim, hic in iusto minus neque nulla obcaecati sint sit voluptatibus. Animi asperiores commodi harum iste iure obcaecati quam voluptate voluptatum! Ad alias atque consequuntur dolorem eveniet harum hic illum inventore, laborum nam, natus reiciendis sapiente veniam vitae voluptates. Architecto, at, aut deleniti dolore dolorem doloribus ea earum excepturi explicabo harum impedit inventore iure natus nulla numquam odit praesentium quae quas quisquam quod rem tenetur ut voluptatum? Alias necessitatibus sit suscipit. Consectetur consequatur, corporis dolor dolores eum facere libero odio perferendis voluptate. Aliquid animi commodi consequatur facere fugiat labore maxime necessitatibus quos veritatis voluptate? Asperiores atque commodi eligendi in maxime numquam odio quo ratione sed temporibus. Ab at autem corporis cum cumque deserunt dolorum eveniet impedit inventore, iste magnam necessitatibus nulla quaerat quidem rerum sit tenetur ut, vel velit, vitae. Autem beatae consequatur, consequuntur culpa earum error hic natus nemo obcaecati repellat? Accusamus cupiditate debitis doloremque facilis libero maiores natus provident repudiandae sunt, ut? Animi aut dicta dolore facere iure laboriosam, numquam porro voluptas. Adipisci error expedita ipsum pariatur quas? Fugiat, pariatur, sequi.
             </p>
+            <h3 id="chapter_7" class="chapter-header">Chapter 7</h3>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis consequuntur magni obcaecati quisquam quo repellat repellendus rerum veniam. Accusantium, modi repellat! Ad at dolore doloremque dolorum itaque laborum mollitia neque quis quisquam voluptate. Architecto atque aut beatae, cum cumque delectus dicta distinctio dolorem ducimus facere fugiat harum illum laboriosam molestiae numquam obcaecati omnis placeat quibusdam quidem reiciendis saepe, sapiente sequi! Commodi eum illo quibusdam sint vitae. Adipisci asperiores at corporis deserunt dicta ducimus eligendi est et eveniet exercitationem fuga fugiat illum magnam non possimus reiciendis sed sequi sit ullam, unde, ut vel veritatis voluptas! Ab cumque debitis deserunt minus nisi numquam officiis provident sequi unde veritatis. Ad blanditiis esse et quaerat repellat. Autem eos excepturi ipsam nam nihil quae, qui tempora. Ab accusantium, alias aspernatur, deleniti exercitationem facilis itaque iure laudantium maxime nesciunt recusandae, reiciendis sed ut. Ad assumenda culpa, delectus deserunt, dicta doloremque dolores eligendi expedita iure magnam nam quae quaerat quia similique soluta. Architecto assumenda corporis cupiditate dolores ducimus enim eos error esse fugiat magni maiores molestiae neque, non optio pariatur quae quia ratione sit ut voluptas. Ab aspernatur assumenda atque dignissimos dolore, doloribus ea eum explicabo ipsa laborum magni natus, numquam, quia unde voluptates? A, ad aliquam asperiores, at commodi consequatur cupiditate deleniti distinctio doloremque dolorum ducimus earum enim error eveniet exercitationem facere illo illum ipsa ipsam labore laborum libero magnam maiores nesciunt nihil nobis non odit optio quae quasi quos ratione sed sunt tempora totam unde vel. Cum dicta iure natus omnis voluptatibus! Accusamus at beatae eveniet in magni molestias nostrum perferendis placeat quis ratione, recusandae repellendus similique voluptatibus. Accusamus accusantium id ipsam labore minima qui reiciendis repellat repudiandae unde vitae. A alias nihil veritatis! Animi asperiores atque exercitationem fugiat impedit officia quas quia quibusdam quo ut. Cum debitis eum laborum, nisi repellat sint. Eveniet, voluptates.
             </p>
+            <h3 id="chapter_8" class="chapter-header">Chapter 8</h3>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, recusandae temporibus? Accusamus ad, adipisci, at consequatur cumque dicta dignissimos enim eveniet exercitationem hic inventore laudantium, minus nesciunt possimus ratione vitae voluptas. A ab consequatur corporis culpa cumque deserunt, dignissimos earum eius eligendi, facilis inventore modi, molestiae nihil nostrum officiis perferendis reiciendis tempora temporibus ullam voluptatem! Ab distinctio iure neque officia, pariatur quam sit soluta suscipit tempora tenetur, vero voluptatum. Atque, blanditiis, culpa cumque dolorem est et fugit, illo nesciunt nisi numquam quia sunt. Delectus harum id libero quaerat velit! Aliquam animi deleniti distinctio impedit minus obcaecati porro, praesentium quam quia tempora. Exercitationem molestias odit pariatur vel veritatis voluptate voluptatum. Distinctio harum maxime minus pariatur totam! Ab assumenda atque autem deserunt dolorum ea, excepturi expedita fugit incidunt magni molestiae necessitatibus nemo possimus quas quisquam temporibus velit? Accusamus aperiam autem, beatae, consequatur debitis harum incidunt laudantium minus molestias mollitia nemo nobis odit officia placeat possimus quaerat rem rerum similique sunt vero voluptas voluptate voluptatibus. Assumenda beatae distinctio earum excepturi explicabo facilis ipsam, magni maiores minima mollitia nemo officia, omnis reiciendis sed similique tempore ullam vel. Eius eveniet excepturi sequi. A alias asperiores culpa cum deleniti eaque eligendi expedita iusto libero minus nihil, optio quasi quis, quo quod quos voluptates? Accusantium alias architecto autem commodi cum cumque dolorem ea, enim eum excepturi facilis id iure magnam modi nemo nihil optio pariatur porro provident quo recusandae rerum sapiente soluta, vel velit. Aliquid atque beatae culpa cum cupiditate deserunt, dolor dolore ducimus, ea earum enim excepturi explicabo fuga impedit iste itaque iure labore neque nobis odit porro quibusdam, quisquam rerum sunt suscipit ut vero voluptas. Architecto asperiores consectetur corporis, debitis delectus deleniti ea ex id ipsa magnam magni minus, quisquam quo repudiandae sequi vel voluptatum? Adipisci dignissimos hic laborum odio quaerat quibusdam soluta vel voluptatem.
             </p>
+            <h3 id="chapter_9" class="chapter-header">Chapter 9</h3>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad architecto deleniti nisi quo voluptatem! Culpa dicta eveniet exercitationem fuga, iusto nesciunt quasi sed similique? A accusamus, accusantium animi dolorem eligendi eum exercitationem explicabo in iure libero, nihil quia sunt tempore ullam unde. Architecto asperiores autem consequuntur dolor dolores doloribus eligendi ex explicabo harum, laborum nisi odio praesentium provident quam, saepe sed sequi, sint temporibus tenetur unde. Amet architecto asperiores assumenda at, dolore dolorem doloremque ducimus facere in libero minus molestiae nam, obcaecati perferendis praesentium quae quibusdam quo totam ut, voluptatibus? Aspernatur consectetur, cum cumque eveniet magni molestiae numquam omnis placeat quae quasi reprehenderit repudiandae. Molestiae non quis quisquam rerum. Cum cumque, dolorem ducimus eum id inventore, ipsam molestiae nihil nobis nulla quas reiciendis ullam ut. A ab, ad animi aperiam aspernatur commodi consequuntur dolorum enim eum fugiat libero magnam minus nihil non nulla, obcaecati porro quis repellat repellendus repudiandae tempora ut veritatis vero. Alias amet debitis dolorum eius numquam perspiciatis rem sint. Deleniti, dolorum, quidem? Ad animi at atque, commodi debitis distinctio eius, et eveniet ex exercitationem impedit ipsa iusto minus molestiae officiis, optio possimus quo repellat soluta totam? Ad adipisci aperiam corporis dicta distinctio dolor doloremque dolores dolorum ea earum, eius error eum excepturi facilis hic ipsam iste laborum magni molestiae mollitia nisi non nulla, obcaecati officia quam quis quisquam quos reprehenderit repudiandae suscipit tempora tenetur voluptates voluptatum. Accusantium asperiores, autem consectetur corporis dolor est fugiat inventore ipsam laborum laudantium minima minus molestias mollitia nemo neque optio quisquam repellendus repudiandae saepe sint tempora tempore, velit, voluptatibus! Accusamus aspernatur assumenda ipsum officia officiis optio quibusdam, quos reprehenderit similique voluptatem? Ab aliquid amet consectetur cumque ea, inventore minima nesciunt obcaecati odio sequi? A accusamus adipisci aliquid blanditiis culpa cum dolore est expedita, hic ipsum, iste, laudantium numquam pariatur quasi saepe? Cum.
             </p>
-            <p id="eee">
+            <h3 id="chapter_10" class="chapter-header">Chapter 10</h3>
+            <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi cumque ea harum itaque magni, molestias mollitia neque nostrum, quod veniam voluptatibus voluptatum. Aliquam dicta doloribus exercitationem fugiat laboriosam molestias nesciunt nobis porro. Ab aliquam consectetur culpa doloremque incidunt labore maiores, odit officiis similique temporibus! Accusantium autem corporis eos minus sed sunt voluptatum? Atque autem dolores ducimus eaque eligendi fugit ipsam, laborum molestiae molestias pariatur, perferendis quo repellendus saepe temporibus, ut voluptas voluptatem? Amet architecto consequatur corporis dolores, ea harum incidunt magnam mollitia nobis non obcaecati sunt vel veritatis. Adipisci aspernatur, autem doloremque eligendi error eveniet fugiat harum ipsum maiores nemo pariatur perferendis repellat! Autem exercitationem explicabo similique velit veritatis. Corporis, cum dolores doloribus enim, esse incidunt labore laboriosam molestiae natus necessitatibus nesciunt nulla officiis quis quo repellendus sequi sit veritatis voluptatem. Accusamus ad aliquid architecto at deleniti dicta dolor dolores, et eum fuga fugiat hic impedit in maxime minus neque nesciunt nulla numquam odit officia perferendis quo, quod recusandae reiciendis rem similique tempora tempore totam voluptates voluptatum! Cupiditate dolores ex ipsa maxime molestias nam sapiente vero? Ad adipisci amet aperiam autem beatae culpa deleniti deserunt dicta dignissimos incidunt laudantium magni maiores modi nesciunt non, perspiciatis, praesentium quas quia quod reprehenderit sapiente tempore tenetur voluptas voluptatem voluptates? Dolore dolores doloribus fugit illo iusto minus qui suscipit. Adipisci consequuntur, dolorem ducimus facere fugiat nam nihil officia officiis omnis quam quidem quis, saepe ullam voluptas voluptatibus. Consectetur, corporis cupiditate deserunt magnam molestiae nisi nostrum quis reprehenderit sunt, tempora vel vitae voluptate voluptates? Aperiam est ex hic, id inventore molestias optio provident quos vero voluptates. Accusantium aliquid amet, aperiam aut dicta est exercitationem, id ipsam iusto laboriosam laborum libero nesciunt, perspiciatis quae quia quisquam voluptatem. Accusantium animi impedit, incidunt magnam minus necessitatibus odit sapiente velit voluptatibus. A accusantium autem modi pariatur reprehenderit saepe vel.
             </p>
         </div>
@@ -46,10 +64,61 @@
 
 <script>
 export default {
-name: "About"
+    name: "About",
+    data(){
+        return {
+            list_end_observer: null,
+        }
+    },
+    mounted() {
+        this.setUpInterSectionObserver();
+    },
+    methods: {
+        setUpInterSectionObserver() {
+
+            let options = {
+                //threshold: 0.7,
+                root: document.querySelector(null),
+                rootMargin: '-100px',
+            };
+            this.list_end_observer = new IntersectionObserver(
+                this.handleIntersection,
+                options
+            );
+
+            document.querySelectorAll('.chapter-header').forEach((section) => {
+                this.list_end_observer.observe(section);
+            });
+        },
+        handleIntersection([entry]) {
+            if (entry.isIntersecting) {
+
+                document.querySelectorAll('.about-menu a').forEach((el) => {
+                    el.classList.toggle(
+                        'active',
+                        el.getAttribute('href') === `/about#${entry.target.id}`
+                    );
+                });
+            }
+        },
+    }
 }
 </script>
 
 <style scoped>
+.about-menu{
+    @apply sticky top-0 bg-white py-1
+}
 
+.about-menu-section{
+    @apply flex flex-wrap justify-between py-1
+}
+
+.about-menu a{
+    @apply whitespace-nowrap mx-2 px-2
+}
+
+.about-menu a.active{
+    @apply bg-blue-500 text-white rounded
+}
 </style>

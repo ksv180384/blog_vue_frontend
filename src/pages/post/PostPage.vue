@@ -25,15 +25,21 @@
 
 <script>
 
-import {mapGetters, mapMutations} from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
+import { setMetaTags } from '@/helpers';
+import store from "@/store/indexStore";
 
 import PostItem from '@/components/PostItem';
 import PostCommentItem from '@/components/PostCommentItem';
 import PostCommentCreate from '@/components/PostCommentCreate';
 import ButtonForm from "@/components/form/ButtonForm";
-import { getPost } from '@/services/post_service';
 
 export default {
+    async beforeRouteEnter(to, from, next) {
+        const resStorePostPage = await store.dispatch('storePostPage/loadPost', to.params.id);
+        setMetaTags(`${resStorePostPage.post.title} - блог`, { description: `${resStorePostPage.post.title} - блог` });
+        next();
+    },
     data(){
         return {
             show_reply: false,
@@ -45,15 +51,6 @@ export default {
     },
     methods: {
         ...mapMutations('storePostPage', ['setPost', 'setPostComments']),
-        async loadPost(){
-            try {
-                const resGetPost = await getPost(this.$route.params.id);
-                this.setPost(resGetPost.post);
-                this.setPostComments(resGetPost.comments);
-            } catch (e) {
-                console.log(e);
-            }
-        },
         updateComments(comments){
             this.setPostComments(comments);
         },
@@ -61,10 +58,11 @@ export default {
             this.show_reply = !this.show_reply;
         }
     },
-    mounted() {
-        this.loadPost();
+    unmounted() {
+        this.setPost(null);
+        this.setPostComments(null);
     },
-    components: {ButtonForm, PostCommentItem, PostItem, PostCommentCreate },
+    components: { ButtonForm, PostCommentItem, PostItem, PostCommentCreate },
 }
 </script>
 

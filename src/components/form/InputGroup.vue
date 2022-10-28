@@ -71,6 +71,11 @@ export default {
             }
         }
     },
+    methods: {
+        focus(){
+            document.getElementById(this.id).focus();
+        }
+    }
 }
 </script>
 

@@ -2,7 +2,10 @@
     <div class="post-comment-item">
         <div class="post-comment-info">
 
-            <PostCommentRating :comment="comment_item"/>
+            <PostCommentRating :id="comment_item.id"
+                               :rating="comment_item.rating"
+                               :use_rating="comment_item.use_rating"
+            />
 
             <div class="post-comment-author">
                 <img :src="comment_item.author.avatar" alt="Автор">
@@ -52,14 +55,13 @@
 <script>
 
 import { mapGetters } from 'vuex';
+import { getCommentsBranch } from "@/services/post_service";
 
 import PostCommentCreate from "@/components/PostCommentCreate";
 import PostCommentRating from "@/components/PostCommentRating";
 import TreeItems from "@/components/TreeItems";
-import { getCommentsBranch } from "@/services/post_service";
 
 export default {
-    components: {PostCommentRating, PostCommentCreate, TreeItems},
     props: {
         comment: {
             type: Object,
@@ -110,7 +112,8 @@ export default {
             this.comment_item.children_count = this.children_comments.length;
             this.open_branch = true;
         },
-    }
+    },
+    components: { PostCommentRating, PostCommentCreate, TreeItems },
 }
 </script>
 

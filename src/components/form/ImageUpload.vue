@@ -10,7 +10,11 @@
                     <div class="drug-and-drop-content">
                         <label :for="id" class="image-upload-container">
                             <span>Откройте картинку</span>
-                            <input :id="id" @change="handleChange" type="file" :accept="accept">
+                            <input :id="id"
+                                   @change="handleChange"
+                                   type="file"
+                                   :accept="available_extensions"
+                            />
                         </label>
                         <p class="pl-1">или перетащите</p>
                     </div>
@@ -29,6 +33,10 @@
                     </div>
                     <label class="image-upload-container-info">
                         <span>{{ file_name }}</span> размер {{ file_size }} Мб
+
+                        <small class="error-message" v-if="error_message">
+                            {{ error_message }}
+                        </small>
                     </label>
                     <div @click="removeImg" class="remove-img">
                         <div class="remove-img-info">
@@ -50,10 +58,6 @@ export default {
             type: String,
             default: '',
         },
-        // modelValue: {
-        //     type: String,
-        //     default: '',
-        // },
         disabled: {
             type: Boolean,
             default: false,
@@ -66,9 +70,13 @@ export default {
             type: String,
             default: '',
         },
+        max_size: {
+            type: Number,
+            default: 5,
+        },
         accept:{
             type: Array,
-            default: ['gif', 'jpg', 'jpeg', 'png']
+            default: ['gif', 'jpg', 'jpeg', 'png'],
         },
         error_message: {
             type: String,
@@ -80,6 +88,7 @@ export default {
             file_name: '',
             file_data: '',
             file_size: '',
+            available_extensions: this.getAccept(),
             error: this.error_message
         }
     },
@@ -87,7 +96,8 @@ export default {
         handleChange(event) {
 
             const file = event?.target?.files[0];
-            if(!file){
+
+            if(!this.validate(file)){
                 return true;
             }
 
@@ -107,7 +117,34 @@ export default {
             this.file_name = '';
             this.file_size = '';
             this.file_data = '';
+            this.error = '';
             this.$emit('update:modelValue', '');
+        },
+        getAccept(){
+            let resAccept = '';
+            this.accept.forEach(item => {
+                resAccept += `image/${item}, `;
+            });
+            return resAccept.slice(0, -2);
+        },
+        validate(file){
+            if(!file){
+                this.error = `Файл не задан.`;
+                return false;
+            }
+
+            if(this.accept.indexOf( file.type.split('/')[1] ) === -1){
+                this.error = 'Доступные расширения файлов ' + this.accept.join(', ');
+                return false;
+            }
+
+            const fileSize = (file.size / 1024 / 1024).toFixed(2);
+            if(this.max_size < fileSize){
+                this.error = `Максимальный размер фвйла ${this.max_size} Мб (размер файла ${fileSize} Мб)`;
+                return false;
+            }
+
+            return true;
         }
     },
 }

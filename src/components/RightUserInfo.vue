@@ -7,13 +7,13 @@
 
                 <div class="menu">
                     <div>
-                        <router-link to="/user/profile">Мой профиль</router-link>
+                        <router-link to="/user/profile" active-class="active">Мой профиль</router-link>
                     </div>
                     <div>
-                        <router-link to="/user/my-posts">Мои посты</router-link>
+                        <router-link to="/user/my-posts" active-class="active">Мои посты</router-link>
                     </div>
                     <div>
-                        <router-link to="/post/create">Добавить пост</router-link>
+                        <router-link to="/post/create" active-class="active">Добавить пост</router-link>
                     </div>
                 </div>
             </div>
@@ -81,5 +81,9 @@ export default {
 
 .menu{
     @apply text-left
+}
+
+.menu a.active{
+    @apply text-blue-400 border-blue-500 border-b;
 }
 </style>

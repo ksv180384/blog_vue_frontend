@@ -7,13 +7,19 @@
         </div>
         <form @submit.prevent="sendComment">
             <div>
-                <textarea ref="textareaPostComment" rows="5" v-model="comment"></textarea>
+                <TextareaGroup v-model="comment"
+                               ref="textareaPostComment"
+                               @change="handleChange(e, 'comment')"
+                               id="textareaComment"
+                               placeholder="Напишите текст комментария."
+                               :rows=5
+                               :disabled="load"
+                               :class="{ error: error_message.comment }"
+                               :error_message="error_message.comment"
+                />
             </div>
-            <div>
-                <button class="btn btn-primary"
-                        type="submit"
-                        :disabled="load"
-                >Отправить</button>
+            <div class="text-right mt-3">
+                <ButtonForm type="submit" :load="load">Отправить</ButtonForm>
             </div>
         </form>
     </div>
@@ -21,10 +27,18 @@
 
 <script>
 
+import useVuelidate from '@vuelidate/core';
+import {helpers, minLength, required} from "@vuelidate/validators";
+import {getValidateErrorMessage} from "@/helpers";
 import { createPostComment } from "@/services/post_service";
+import ButtonForm from '@/components/form/ButtonForm';
+import TextareaGroup from "@/components/form/TextareaGroup";
 
 export default {
     name: "PostCommentCreate",
+    setup(){
+        return { v$: useVuelidate() }
+    },
     props: {
         post_id: {
             type: Number,
@@ -42,10 +56,25 @@ export default {
             comment: '',
             show_reply: false,
             load: false,
+            error_message: {},
+        }
+    },
+    validations() {
+        return {
+            comment: {
+                required: helpers.withMessage(() => `Введите название поста.`, required),
+                minLength: helpers.withMessage(() => `Комментарий поста должен быть не короче 2 символов.`, minLength(2)),
+            },
         }
     },
     methods: {
         async sendComment(){
+            this.error_message = {};
+            if(this.v$.$invalid){
+                this.v$.$touch();
+                this.error_message = getValidateErrorMessage(this.v$);
+                return true;
+            }
 
             this.load = true;
 
@@ -64,19 +93,24 @@ export default {
                 this.load = false;
             } catch (e) {
                 this.load = false;
+                this.error_message.comment = 'Ошибка попробуйте позже.';
                 console.log(e);
             }
+        },
+        handleChange(e, field){
+            this.v$[field].$touch();
+            this.error_message = getValidateErrorMessage(this.v$);
         },
         showReply(){
             this.$emit('updateParentShowReply');
         }
     },
-    created() {
+    mounted() {
         this.$nextTick(() => {
-            const textareaPostComment = this.$refs.textareaPostComment;
-            textareaPostComment.focus();
+            this.$refs.textareaPostComment.focus();
         })
-    }
+    },
+    components: {TextareaGroup, ButtonForm }
 }
 </script>
 
