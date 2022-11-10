@@ -36,8 +36,8 @@ export default {
 <style scoped>
 .scroll-up{
     @apply
-        rounded-full w-14 h-14 bg-white text-blue-400 hover:text-blue-500 shadow fixed
-        left-1/2 bottom-4 flex justify-center items-center cursor-pointer z-10;
+        rounded-full w-14 h-14 bg-white text-blue-400 hover:text-blue-500 shadow-2xl border border-blue-300
+        fixed left-1/2 bottom-4 flex justify-center items-center cursor-pointer z-10;
     margin-left: 190px;
 }
 </style>

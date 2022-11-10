@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+
+  blog_frontend_client:
+    container_name: blog-frontend-client
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app_blog'
+      - '/app_blog/node_modules'
+    ports:
+      - '8081:3011'

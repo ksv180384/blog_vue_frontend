@@ -102,34 +102,6 @@ main{
     @apply text-center font-semibold mb-3
 }
 
-.right-sidebar-container{
-    @apply fixed top-0 left-0 overflow-hidden w-full h-auto
-}
-
-.bg-right-sidebar{
-    @apply w-screen h-screen bg-opacity-60 bg-black transition-all 
-}
-
-.right-sidebar{
-    @apply absolute right-0 top-0 h-full bg-white w-10/12 shadow-lg transition-all 
-}
-
-.right-sidebar-header{
-    @apply h-14 flex justify-between items-center px-3 bg-blue-400 text-white
-}
-
-.btn-close-right-sidebar{
-    @apply h-6 w-6 p-1 cursor-pointer
-}
-
-.right-sidebar-menu{
-    @apply flex flex-col
-}
-
-.right-sidebar-menu>a{
-    @apply px-4 py-2
-}
-
 .link{
     @apply hover:text-blue-400 transition duration-300
 }

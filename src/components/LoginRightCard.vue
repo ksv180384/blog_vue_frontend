@@ -38,8 +38,6 @@
                     Регистрация
                 </a>
             </div>
-            <hr>
-            <SocialLogin/>
         </div>
     </div>
 </template>
@@ -50,7 +48,6 @@ import { mapMutations } from "vuex";
 import useVuelidate from '@vuelidate/core';
 import {email, helpers, required} from "@vuelidate/validators";
 
-import SocialLogin from "@/components/SocialLogin";
 import Checkbox from "@/components/form/Checkbox";
 import InputGroup from "@/components/form/InputGroup";
 
@@ -122,6 +119,6 @@ export default {
             this.error_message = getValidateErrorMessage(this.v$);
         }
     },
-    components: {ButtonForm, SocialLogin, InputGroup, Checkbox },
+    components: {ButtonForm, InputGroup, Checkbox },
 }
 </script>

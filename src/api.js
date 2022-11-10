@@ -4,15 +4,20 @@ import store from '@/store/indexStore';
 import { initAuth, getAuthToken, removeUserData } from "@/helpers";
 import { refreshToken } from '@/services/user_service';
 
+const base_URL =  process.env.VUE_APP_API_URL !== 'http://blog-vue.local'
+    ?
+    'http://localhost:8083/api/v1/'
+    :
+    process.env.VUE_APP_API_URL + '/api/v1/';
+
 const api = axios.create({
     //baseURL: `${process.env.VUE_APP_API_URL}/api/v1/`,
-    baseURL: '/api/v1/',  // vue.config.js настроен путь для crossdomain
+    baseURL: base_URL,  // vue.config.js настроен путь для crossdomain
+    //baseURL: 'http://localhost:8083/api/v1/',  // vue.config.js настроен путь для crossdomain
     //withCredentials: false,
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        //'Cache-Control': null,
-        //'X-Requested-With': null,
     }
 });
 

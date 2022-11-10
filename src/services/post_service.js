@@ -2,11 +2,11 @@
 import {loadPage, getData, putData, postData} from "@/services/service";
 
 export const getPostsPage = async () => {
-    return  await loadPage('/', {});
+    return  await loadPage('/index', {});
 }
 
 export const getPostsNext = async (params) => {
-    return  await getData('/', params);
+    return  await getData('/index', params);
 }
 
 export const getTopPostsPage = async () => {

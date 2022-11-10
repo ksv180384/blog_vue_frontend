@@ -58,8 +58,6 @@
                         Авторизоваться
                     </a>
                 </div>
-                <hr>
-                <SocialLogin/>
             </form>
         </div>
     </div>
