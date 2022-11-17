@@ -29,15 +29,20 @@
                 <Checkbox v-model="published" id="checkboxPublished">Опубликовать пост</Checkbox>
             </div>
 
-            <div class="mt-2 text-right">
-                <button @click="openLoadImg"
-                        type="button"
-                        class="btn btn-primary p-2 mr-2"
-                >
-                    <i class="fas fa-image"></i>
-                    <input @change="addImage" ref="loadInput" type="file" hidden/>
-                </button>
-                <ButtonForm type="submit" :load="is_disabled">Добавить</ButtonForm>
+            <div class="flex justify-between items-center mt-2 text-right">
+                <div class="text-red-500">
+                    <span v-if="error_message.images">{{ error_message.images }}</span>
+                </div>
+                <div>
+                    <button @click="openLoadImg"
+                            type="button"
+                            class="btn btn-primary p-2 mr-2"
+                    >
+                        <i class="fas fa-image"></i>
+                        <input @change="addImage" ref="loadInput" type="file" hidden/>
+                    </button>
+                    <ButtonForm type="submit" :load="is_disabled">Добавить</ButtonForm>
+                </div>
             </div>
         </form>
         <LoadImage v-for="(image, index) in images"
@@ -53,7 +58,7 @@
 
 import useVuelidate from '@vuelidate/core';
 import { helpers, required, minLength } from "@vuelidate/validators";
-import { getValidateErrorMessage } from "@/helpers";
+import {getValidateErrorMessage, setMetaTags} from "@/helpers";
 import { createPost } from "@/services/post_service";
 
 import router from "@/router/indexRouter";
@@ -67,6 +72,10 @@ export default {
     name: "CreatePostPage",
     setup(){
         return { v$: useVuelidate() }
+    },
+    async beforeRouteEnter(to, from, next) {
+        setMetaTags(`Добавить новы пост - блог`, { description: `Добавить новы пост - блог` });
+        next();
     },
     data(){
         return {
@@ -95,7 +104,11 @@ export default {
             this.$refs.loadInput.click();
         },
         async addImage(){
+            this.error_message.images = '';
             const file = this.$refs.loadInput.files[0];
+            if(!this.validateFile(file)){
+                return false;
+            }
             const imageBase64 = await this.loadImage(file);
             this.images.push({ src: imageBase64 });
         },
@@ -138,6 +151,20 @@ export default {
         handleChange(e, field){
             this.v$[field].$touch();
             this.error_message = getValidateErrorMessage(this.v$);
+        },
+        validateFile(file){
+            const extValid = ['jpg', 'jpeg', 'png'];
+            const fileSize = (file.size/1024/1024).toFixed(2);
+            if(fileSize > 10){
+                this.error_message.images = `Максимальный размер картинки 10 мб`;
+                return false;
+            }
+            const ext = file.name.split('.').pop();
+            if(extValid.indexOf(ext) === -1){
+                this.error_message.images = `Доступные форматы картинок ${extValid.join(', ')}`;
+                return false;
+            }
+            return true;
         }
     },
     components: { Checkbox, ButtonForm, LoadImage, InputGroup, TextareaGroup },
