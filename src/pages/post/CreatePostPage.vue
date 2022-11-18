@@ -81,6 +81,7 @@ export default {
         return {
             title: '',
             post: '',
+            images_form: [],
             images: [],
             published: true,
             is_disabled: false,
@@ -103,14 +104,15 @@ export default {
         openLoadImg(){
             this.$refs.loadInput.click();
         },
-        async addImage(){
+        async addImage(e){
             this.error_message.images = '';
-            const file = this.$refs.loadInput.files[0];
+            const file = e.target.files[0];
             if(!this.validateFile(file)){
                 return false;
             }
             const imageBase64 = await this.loadImage(file);
             this.images.push({ src: imageBase64 });
+            this.images_form.push(file);
         },
         async addPost(){
             this.error_message = {};
@@ -119,15 +121,17 @@ export default {
                 this.error_message = getValidateErrorMessage(this.v$);
                 return true;
             }
-            const postData = {
-                title: this.title,
-                content: this.post,
-                images: this.images,
-                published: this.published
-            };
+
+            const formData = new FormData();
+            formData.append('title', this.title);
+            formData.append('content', this.post);
+            formData.append('published', this.published);
+            for (let k in this.images_form){
+                formData.append('images[]', this.images_form[k]);
+            }
             this.is_disabled = true;
             try {
-                const resCreatePost = await createPost(postData);
+                const resCreatePost = await createPost(formData);
                 this.is_disabled = false;
                 router.push('/user/my-posts');
             }catch (e){

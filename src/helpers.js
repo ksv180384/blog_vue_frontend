@@ -26,6 +26,7 @@ export const initAuth = (store, authData) => {
     if(authData){
         store.commit('setAuth', true);
         store.commit('setUser', authData);
+        localStorage.setItem('user', JSON.stringify(authData));
     }else{
         removeUserData(store);
     }
