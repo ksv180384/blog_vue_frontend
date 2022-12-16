@@ -2,10 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router';
 import store from '@/store/indexStore';
 
 // routes
-import routeCommon from '@/pages/routesCommon';
+import commonRoute from '@/router/common.routes';
 
 const routes = [
-    ...routeCommon,
+    ...commonRoute,
 ];
 
 const router = createRouter({

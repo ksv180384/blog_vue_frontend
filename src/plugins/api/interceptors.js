@@ -1,44 +1,38 @@
-import axios from 'axios';
+import { getAuthToken, initAuth, removeUserData } from "@/helpers";
+import store from "@/store/indexStore";
+import { refreshToken } from "@/services/user_service";
 import router from "@/router/indexRouter";
-import store from '@/store/indexStore';
-import { initAuth, getAuthToken, removeUserData } from "@/helpers";
-import { refreshToken } from '@/services/user_service';
 
-const base_URL =  process.env.VUE_APP_API_URL !== 'http://blog-vue.local'
-    ?
-    'http://localhost:8083/api/v1/'
-    :
-    process.env.VUE_APP_API_URL + '/api/v1/';
+export default function (api){
+    api.interceptors.request.use(function (config){
+            return setRequestParams(config);
+        },
+        function (error){
+            return Promise.reject(error);
+        });
 
-const api = axios.create({
-    //baseURL: `${process.env.VUE_APP_API_URL}/api/v1/`,
-    baseURL: base_URL,  // vue.config.js настроен путь для crossdomain
-    //baseURL: 'http://localhost:8083/api/v1/',  // vue.config.js настроен путь для crossdomain
-    //withCredentials: false,
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-    }
-});
+    // Обработка ответа сервера для всех заросов
+    api.interceptors.response.use(async function (response) {
+        // При положительном ответе сервера
+        return processingSuccessResponse(api, response);
+    },
+        async function (error) {
+        // При ответе сервера с ошибкой
+        return processingErrorResponse(api, error);
+    });
+}
 
-api.interceptors.request.use(function (config){
-
+// Задаем данные запроса
+const setRequestParams = (config) => {
     const token = getAuthToken();
-
     if(token){
         config.headers['Authorization'] = 'Bearer ' + token;
     }
-
     return config;
-},
-function (error){
-    return Promise.reject(error);
-});
+}
 
-// Обработка ответа сервера для всех заросов
-api.interceptors.response.use(async function (response) {
-    // При положительном ответе сервера
-
+// Обрабатываем данные положительного ответа
+const processingSuccessResponse = async (api, response) => {
     // Для обновления токена вторизации и выхода не перезависываем данные пользователя
     if(response.config.url !== 'refresh' && response.config.url !== 'logout'){
         // Если пользователь авторизован, а данные пользователя не пришли, то обновляем токен авторизации
@@ -52,20 +46,22 @@ api.interceptors.response.use(async function (response) {
     }
 
     return response.data;
-}, async function (error) {
-    // При ответе сервера с ошибкой
+}
 
+// Обрабатываем данные ответа с ошибкой
+const processingErrorResponse = async (api, error) => {
     // Если ошибка авторизации, то удаляем данные пользователя из localStorage
     if(error?.response?.status === 401){
+        // Но если ошибка авторизации и авторизация с галочкой "запомнить", то обновляем токен
         if(error.response.data.message === 'Unauthenticated.' && store.getters.remember){
             try {
+                // Пробуем обновить токен авторизации
                 const resRefreshToken = await refreshToken();
                 localStorage.setItem('token', resRefreshToken.access_token);
                 api.defaults.headers.common['Authorization'] = 'Bearer ' + resRefreshToken.access_token;
-                //console.log('refresh');
-                return api.request(error.config);
+                return api.request(error.config); // Повторный запрос с ообновленным токеном
             } catch (e) {
-                //console.log('refresh error');
+                // При невозможности обновить токен, затираем данные авторизации и редирект на главную
                 removeUserData(store);
                 api.defaults.headers.common['Authorization'] = '';
                 router.push('/');
@@ -78,6 +74,7 @@ api.interceptors.response.use(async function (response) {
         return Promise.reject(error);
     }
 
+    // Если запрос типа get вернул ошибку, то скрываем прелоадер и редирект на страницу с ошибкой
     if(error.config.method === 'get'){
         store.commit('setIsLoadingPage', false);
         router.push('/404');
@@ -89,6 +86,4 @@ api.interceptors.response.use(async function (response) {
     }
 
     return Promise.reject(error);
-});
-
-export default api;
+}

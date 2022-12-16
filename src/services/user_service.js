@@ -1,5 +1,4 @@
-import {getData, loadPage, postData, putData} from "@/services/service";
-import api from "@/api";
+import { loadPage, postData } from "@/services/service";
 
 export const userLogin = async (params) => {
     return await postData('login', params);

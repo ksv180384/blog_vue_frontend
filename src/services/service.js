@@ -1,5 +1,5 @@
 import store from "@/store/indexStore";
-import api from "@/api";
+import api from "@/plugins/api/api_plugin";
 
 export const loadPage = async (path, params) => {
     store.commit('setIsLoadingPage', true);

@@ -9,7 +9,7 @@
 
             <div class="post-comment-author">
                 <img :src="comment_item.author.avatar" alt="Автор">
-                <a href="#" class="link">{{ comment_item.author.name }}</a>
+                <router-link :to="`/user/${comment_item.author.id}`" class="link">{{ comment_item.author.name }}</router-link>
             </div>
             <div class="post-comment-date">{{ comment_item.created_at_humans }}</div>
         </div>
